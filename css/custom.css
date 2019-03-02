@@ -1,0 +1,48 @@
+body, html {
+ font-family: 'Quicksand', sans-serif;
+ font-weight: 400;
+ height: 100%;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+ font-weight: 300;
+}
+
+#home{
+    float: left;
+    text-align: center;
+    width: 100%;
+}
+
+form{
+   margin-top: 75px;
+ }
+
+.bg {
+  /* The image used */
+  background-image: url("https://www.hostpapa.com/blog/wp-content/uploads/2013/07/free-bootstrap-ecommerce-templates.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Dropdown Animation on hover*/
+.dropdown .dropdown-menu{
+    display: block; 
+  opacity:0;
+-webkit-transition: all 200ms ease-in;
+-moz-transition: all 200ms ease-in;
+-ms-transition: all 200ms ease-in;
+-o-transition: all 200ms ease-in;
+transition: all 200ms ease-in;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+}
