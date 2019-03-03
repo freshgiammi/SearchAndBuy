@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="IT">
+ 
   <head>
     <!-- Required meta tags -->
     <meta charset="UTF-8">
@@ -11,16 +12,36 @@
     <!-- Custom Resources -->
     <link rel="stylesheet" href="css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    <script type="text/javascript" src="register.js"></script>
 
     <title>Search&Buy Login</title>
   </head>
+
   <body>
       <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
        <a class="navbar-brand" href="Home.html" id="home">Search&Buy</a> 
     </nav> 
-      
-
+    <center>
+        <form>
+            <select class="custom-select" id="usertype" onchange="showHide()">
+                <option selected disabled hidden>Sei un venditore o un cliente?</option>
+                <option value="cli" >Cliente</option>
+                <option value="vend">Venditore</option>
+            </select>
+        </form>
+        <br>
+        
+    <div id="client"> 
+    cliente
+    </div>
+    <div id="vendor"> 
+    vendor
+    </div>
+    
+    </center> 
+     
+     
       
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
