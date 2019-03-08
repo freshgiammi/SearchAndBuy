@@ -1,5 +1,6 @@
-function showHide() {
-    var selectedValue = document.getElementById{"usertype").value;
+/*Hide and show forms for each user type*/
+function showHide() { 
+    var selectedValue = document.getElementById("usertype").value;
     console.log(selectedValue);
     if (selectedValue == "vend"){
         document.getElementById("vendor").style.display = "block";
