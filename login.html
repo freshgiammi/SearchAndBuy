@@ -11,6 +11,8 @@
     <!-- Custom Resources -->
     <link rel="stylesheet" href="css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    <script type="text/javascript" src="users.json"></script> <!-- importo file json -->
+  	<script type="text/javascript" src="login.js"></script>
 
     <!-- Font Awesome for favicons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
@@ -31,16 +33,16 @@
             <div class="input-group-prepend"> <!-- Nome/Cognome -->
                 <span class="input-group-text"> <i class="fas fa-fw fa-envelope"></i> </span>
              </div>
-                <input name="" class="form-control" placeholder="Email" type="text">
+                <input id="email" class="form-control" placeholder="Email" type="text">
             </div> 
             <div class="form-group input-group"> <!-- Password -->  
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fas fa-fw fa-lock"></i> </span>
             </div>
-                <input class="form-control" placeholder="Password" type="password">
+                <input id="password" class="form-control" placeholder="Password" type="password">
             </div>  
             <div class="form-group"> <!-- TODO: Create javascript code to register -->  
-                <button type="submit" class="btn btn-primary btn-block"> Crea Account  </button>
+                <input type="button" class="btn btn-primary btn-block" value="Login" onclick="Login()"/>
             </div> 
         </form>
             <p class="text-center">Non hai ancora un account? <a href="register.html">Registrati!</a> </p> 

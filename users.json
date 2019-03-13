@@ -1,0 +1,60 @@
+
+var users=[
+	{
+
+"Clienti":[
+
+	{
+    "ID":1
+	,
+	"nomecognome":"John Doe"
+	,
+	"nascita":"17-03-1970"
+	,
+	"email":"johndoe@email.com"
+	,
+	"indirizzo":"Street 404"
+	,
+	"password":"123"
+	,
+	"usertype":"cli"
+    ,
+	"useragreement":"accept"
+	,
+	"pagamento":"pagamento"
+	,
+	"acquisti":[]
+	}
+      ]
+     ,
+
+"Venditori":[
+    
+	{
+    "ID":1
+	,
+	"nomecognome":"Mario Rossi"
+	,
+	"nascita":"1990-11-19"
+	,
+	"email":"Mariorossi@mail.com"
+	,
+	"indirizzo":"viaRossi1"
+	,
+	"password":"124"
+	,
+	"usertype":"vend"
+    ,
+	"useragreement":"accept"
+	,
+	"pagamento":"pagamento"
+	}
+      ]
+
+}
+]
+
+
+
+
+  		
