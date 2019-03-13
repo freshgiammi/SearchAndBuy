@@ -22,7 +22,7 @@ var utenti = [];
     users[0]["Clienti"].push({"ID":(users[0].Clienti.length+1),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"cli","pagamento":document.getElementById("indirizzo"),"useragreement":document.getElementById("useragreement"),"acquisti":new Array()});  
    
  }else{
-     users[0]["Venditori"].push({"ID":(users[0].Venditori.length+1),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzp":document.getElementById("indirizzo").value,"tipo":"vend","pagamento":document.getElementById("useragreement"),"attività":document.getElementById("attivita").value,"partitaiva":document.getElementById("partitaiva")}); 
+     users[0]["Venditori"].push({"ID":(users[0].Venditori.length+1),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"vend","pagamento":document.getElementById("useragreement"),"attività":document.getElementById("attivita").value,"partitaiva":document.getElementById("partitaiva")}); 
  }
 localStorage["users"]=JSON.stringify(users); //Add user in localstorage
 console.log(users); 
