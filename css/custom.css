@@ -1,9 +1,23 @@
-body, html {
- font-family: 'Quicksand', sans-serif;
- font-weight: 400;
- height: 100%;
- padding-top: 28px;
+body,
+html {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    height: 100%;
+    padding-top: 28px;
 }
+
+#register {
+    display: none;
+}
+
+#profile {
+    display: none;
+}
+
+#shoppingcart {
+    display: none;
+}
+
 
 /* In case we want to change the navbar color, remember to remove bg-light
 .navbar {
@@ -11,64 +25,80 @@ body, html {
 }
 */
 
-h1, h2, h3, h4, h5, h6 {
- font-weight: 300;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 300;
 }
- /*Set carousel height*/
-.carousel-inner > .carousel-item {
+
+
+/*Set carousel height*/
+
+.carousel-inner>.carousel-item {
     height: 400px;
+    /*TODO: 350px seems better; find the right height.*/
 }
+
 
 /*Make carousel image responsive to viewport size for mobile*/
+
 @media (max-width: 480px) {
     #carouselone {
-    background-image: url("../img/macbook_small.png");
-    background-position: center center;
-    background-size: cover;
-  }
+        background-image: url("../img/macbook_small.png");
+        background-position: center center;
+        background-size: cover;
+    }
     #carouseltwo {
-    background-image: url(https://source.unsplash.com/category/architecture/);
-  }
+        background-image: url(https://source.unsplash.com/category/architecture/);
+    }
     #carouselthree {
-    background-image: url(https://source.unsplash.com/category/architecture/);
-  }
+        background-image: url(https://source.unsplash.com/category/architecture/);
+    }
 }
+
 @media (min-width: 481px) {
     #carouselone {
-    background-image: url("../img/macbook_big.png");
-    background-position: center center;
-    background-size: cover;
-  }
+        background-image: url("../img/macbook_big.png");
+        background-position: center center;
+        background-size: cover;
+    }
     #carouseltwo {
-    background-image: url("../img/macbook_big.png");
-    background-position: center center;
-    background-size: cover;
-  }
+        background-image: url("../img/macbook_big.png");
+        background-position: center center;
+        background-size: cover;
+    }
     #carouselthree {
-    background-image: url("../img/macbook_big.png");
-    background-position: center center;
-    background-size: cover;
-  }
+        background-image: url("../img/macbook_big.png");
+        background-position: center center;
+        background-size: cover;
+    }
 }
+
 
 /* Client/Vendor module*/
-#client{
+
+#client {
     display: none;
 }
 
-#vendor{
+#vendor {
     display: none;
 }
 
-.custom-select{
-    text-align: center; /* Firefox requires this */
-    width: 300px; 
-    text-align-last:center;
+.custom-select {
+    text-align: center;
+    /* Firefox requires this */
+    width: 300px;
+    text-align-last: center;
 }
 
-#footer{
+#footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: #f8f9fa; /* Same color as bg-light */
+    background-color: #f8f9fa;
+    /* Same color as bg-light */
 }
