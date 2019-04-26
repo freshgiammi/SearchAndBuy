@@ -1,0 +1,22 @@
+var Prodotti=[
+
+	{
+	"Nome":"Macbook Pro 13"
+	,
+	"Prezzo":1270
+	,
+	"Immagine":"macbook.png"
+	,
+	"Categoria":"Electronics"
+	,
+	"Descrizione":"MacbookPro 13' Display retina,  ottimo computer per studenti e per chi ha bisogno di un computer portatile maneggevole "
+	,
+	"ID":1
+	,
+	"Quantita":5
+	,
+	"TipoSpedizione":"Posta"
+	,
+	"SellerID":1
+	}
+      ]

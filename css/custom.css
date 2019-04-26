@@ -6,7 +6,7 @@ html {
     padding-top: 28px;
 }
 
-#register {
+#login {
     display: none;
 }
 
@@ -93,12 +93,4 @@ h6 {
     /* Firefox requires this */
     width: 300px;
     text-align-last: center;
-}
-
-#footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: #f8f9fa;
-    /* Same color as bg-light */
 }

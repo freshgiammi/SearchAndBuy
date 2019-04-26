@@ -1,7 +1,9 @@
-//Initialize JSON into localstorage
+//Initialize JSON into localstorage.
+//Check if localstorage already exists, otherwise we may write deleted users on top of it.
 if(localStorage.getItem("users")==null){
       localStorage.setItem("users", JSON.stringify(users));
     } 
+    
 //Create a userlist with all users
 var userlist = JSON.parse(localStorage.getItem("users"));
 console.log(userlist);

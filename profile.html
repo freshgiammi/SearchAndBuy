@@ -2,6 +2,15 @@
 <html lang="IT">
 
 <head>
+    <!-- DONT LOAD PAGE IF USER IS NOT LOGGED IN -->
+    <script type="text/javascript">
+        var userid = sessionStorage.getItem('userid');
+            if (userid == null){
+                console.log('User is not logged in. Redirecting to login page...');
+                document.location.href="login.html";
+            } 
+    </script>
+
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,13 +20,17 @@
 
     <!-- Custom Resources -->
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/profile.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
     <script type="text/javascript" src="index.js"></script>
 
-    <title>Search&Buy, il più grande store d'Europa</title>
+    <!-- Font Awesome for favicons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+    <title>Search&Buy - Profile</title>
 </head>
 
-<body onload="navbarhider()">
+<body onload="profilepage()">
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Search&Buy</a>
@@ -27,8 +40,8 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">I più acquistati</a>
@@ -43,7 +56,7 @@
                     </div>
                 </li>
                 <a id="login" class="nav-link" href="login.html">Login</a>
-                <a id="profile" class="nav-link" href="profile.html">Il mio profilo</a>
+                <a id="profile" class="nav-link active" href="#">Il mio profilo</a>
                 <a id="shoppingcart" class="nav-link" href="shoppingcart.html">Carrello</a>
 
             </ul>
@@ -56,30 +69,58 @@
         </div>
     </nav>
 
-    <!-- Carousel -->
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" data-interval="1000">
-            <div class="carousel-item active" id="carouselone" style="cursor: pointer;" onclick="window.location='http://google.com';">
+<!-- Profile Info -->
+<div class="container">
+    <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+                <!-- SIDEBAR SECTION-->
+				<div class="profile-userinfo">
+					<div id="name">
+						<!-- username -->
+					</div>
+					<div id="usertype">
+						<!-- vendor/client -->
+					</div>
+				</div>
+				<div class="profile-userbuttons">
+					<button type="button" class="btn btn-success btn-sm">Modifica</button>
+					<button type="button" class="btn btn-danger btn-sm" onclick="logout()">Logout</button>
+				</div>
+				<div class="profile-usermenu">
+					<ul class="nav flex-column">
+						<li class="nav-item active">
+							<a class="nav-link" href="#">
+                            <i class="fas fa-fw fa-user"></i>
+							Informazioni</a>
+						</li>
+						<li class="nav-item">
+                            <a class="nav-link" href="#">
+                            <i class="fas fa-fw fa-shopping-cart"></i>
+							Ordini Effettuati</a>
+						</li>
+						<li class="nav-item">
+                            <a class="nav-link" href="#" target="_blank">
+                            <i class="fas fa-fw fa-star"></i>
+							Recensioni</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" onclick="deleteaccount()">
+                            <i class="fas fa-fw fa-user-times"></i>
+                            Elimina account</a>
+                            </li>
+					</ul>
+				</div>
+				<!-- SIDEBAR END -->
+			</div>
+		</div>
+		<div class="col-md-9">
+            <div class="profile-content"> <!-- TODO: Add content based on sidebar active link -->
+			   Some user related content goes here...
             </div>
-            <div class="carousel-item" id="carouseltwo" style="cursor: pointer;" onclick="window.location='http://google.com';">
-            </div>
-            <div class="carousel-item" id="carouselthree" style="cursor: pointer;" onclick="window.location='http://google.com';">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
+		</div>
+	</div>
+</div>
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

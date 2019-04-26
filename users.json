@@ -5,7 +5,7 @@ var users=[
 "Clienti":[
 
 	{
-    "ID":1
+    "ID":0
 	,
 	"nomecognome":"John Doe"
 	,
@@ -31,7 +31,7 @@ var users=[
 "Venditori":[
     
 	{
-    "ID":1
+    "ID":0
 	,
 	"nomecognome":"Mario Rossi"
 	,
