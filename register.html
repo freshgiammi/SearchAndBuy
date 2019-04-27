@@ -2,6 +2,16 @@
 <html lang="IT" style="padding-top: 0px">
  
   <head>
+    <!-- DONT LOAD PAGE IF USER IS LOGGED IN -->
+    <script type="text/javascript">
+        var userid = sessionStorage.getItem('userid');
+            if (userid != null){
+                console.log('User is logged in. Redirecting to homepage...');
+                alert("Sei già loggato. Per accedere a questa pagina, devi prima uscire.");
+                document.location.href="index.html";
+            } 
+    </script>
+
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,8 +22,8 @@
     <!-- Custom Resources -->
     <link rel="stylesheet" href="css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    <script type="text/javascript" src="users.json"></script> <!-- JSON User List -->
     <script type="text/javascript" src="register.js"></script>
-    <script type="text/javascript" src="users.json"></script>
    
     <!-- Font Awesome for favicons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
@@ -84,11 +94,11 @@
                 <div class="input-group-prepend"> <!-- TODO: Check for credit card --> 
                      <span class="input-group-text"> <i class="far fa-fw fa-credit-card"></i> </span>
                 </div>
-                    <input id="pagamento" class="form-control" placeholder="Carta di credito" type="password">
+                    <input id="pagamento" class="form-control" placeholder="Carta Di Credito" type="text">
                 </div>          
                 <form>
                     <select class="custom-select" id="useragreement">
-                        <option selected disabled hidden>Accetti i termini di contratto?</option>
+                        <option value="" selected disabled hidden>Accetti i termini di contratto?</option>
                         <option value="accept" >Accetto</option>
                         <option value="deny">Non accetto</option>
                     </select>
@@ -161,11 +171,11 @@
                 <div class="input-group-prepend"> <!-- TODO: Check for credit card --> 
                      <span class="input-group-text"> <i class="far fa-fw fa-credit-card"></i> </span>
                 </div>
-                    <input id="pagamento" class="form-control" placeholder="Carta di credito" type="password">
+                    <input id="pagamento" class="form-control" placeholder="Carta Di Credito" type="text">
                 </div>                          
                 <form>
                     <select class="custom-select" id="useragreement">
-                        <option selected disabled hidden>Accetti i termini di contratto?</option>
+                        <option value="" selected disabled hidden>Accetti i termini di contratto?</option>
                         <option value="accept" >Accetto</option>
                         <option value="deny">Non accetto</option>
                     </select>

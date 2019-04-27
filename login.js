@@ -17,6 +17,7 @@ function Login(){
             if (userlist[0].Clienti[i].email == email &&userlist[0].Clienti[i].password == password){
                 sessionStorage.setItem("userid",i);
                 sessionStorage.setItem("usertype","cli");
+                console.log('Login Successful. Redirecting to homepage...');
                 document.location.href="index.html";
             return false; //workaround: flush data to redirect user to index.html
             }
@@ -26,6 +27,7 @@ function Login(){
             if (userlist[0].Venditori[i].email == email &&userlist[0].Venditori[i].password == password){
                 sessionStorage.setItem("userid",i);
                 sessionStorage.setItem("usertype","vend");
+                console.log('Login Successful. Redirecting to homepage...');
                 document.location.href="index.html";
             return false; //workaround: flush data to redirect user to index.html
   		    }

@@ -47,24 +47,29 @@ function userinfo(){
 
 /* Logout, clears all data */
 function logout(){
-    confirm("Sei sicuro di voler uscire?");
-    sessionStorage.clear(); // DO NOT CLEAR LOCALSTORAGE, or you will delete newly registered users
-    document.location.href="index.html";
-}
-function deleteaccount(){
-    confirm("Sei sicuro di voler eliminare il tuo account?");
-    var userid = sessionStorage.getItem('userid');
-    var usertype = sessionStorage.getItem('usertype');
-    var userlist = JSON.parse(localStorage.getItem("users"));
-    if (usertype == "cli"){
-        userlist[0].Clienti.splice(userid,1);
-    } else { 
-        userlist[0].Venditori.splice(userid,1);
+    if (confirm("Sei sicuro di voler uscire?")){
+        sessionStorage.clear(); // DO NOT CLEAR LOCALSTORAGE, or you will delete newly registered users
+        document.location.href="index.html";
+    } else {
+        return false;
     }
-    localStorage.setItem("users", JSON.stringify(userlist));
-    console.log("User deleted. New Userlist is:")
-    console.log(userlist);
-    console.log("Redirecting to homepage...");
-    sessionStorage.clear();
-    document.location.href="index.html";   
+}
+
+function deleteaccount(){
+    if (confirm("Sei sicuro di voler eliminare il tuo account?")){
+        var userid = sessionStorage.getItem('userid');
+        var usertype = sessionStorage.getItem('usertype');
+        var userlist = JSON.parse(localStorage.getItem("users"));
+        if (usertype == "cli"){
+            userlist[0].Clienti.splice(userid,1);
+        } else { 
+            userlist[0].Venditori.splice(userid,1);
+        }
+        localStorage.setItem("users", JSON.stringify(userlist));
+        console.log("User deleted. New Userlist is:")
+        console.log(userlist);
+        console.log("Redirecting to homepage...");
+        sessionStorage.clear();
+        document.location.href="index.html";   
+    }
 }
