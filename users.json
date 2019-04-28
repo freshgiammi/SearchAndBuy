@@ -47,6 +47,10 @@ var users=[
     ,
 	"useragreement":"accept"
 	,
+	"attività":"Angolo Tecnologico srl"
+	,
+	"partitaiva":"p.iva"
+	,
 	"pagamento":"pagamento"
 	}
       ]

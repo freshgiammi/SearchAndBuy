@@ -12,14 +12,13 @@
     <!-- Custom Resources -->
     <link rel="stylesheet" href="css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    <script type="text/javascript" src="products.json"></script> <!-- JSON Product List -->
     <script type="text/javascript" src="utilities.js"></script>
-    <script type="text/javascript" src="products.json"></script>
-    <script type="text/javascript" src="users.json"></script>
-
+    
     <title>Search&Buy, il più grande store d'Europa</title>
 </head>
 
-<body onload="indexloader()">
+<body onload="productloader()">
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Search&Buy</a>
@@ -30,7 +29,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="index.html">Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">I più acquistati</a>
@@ -58,33 +57,60 @@
         </div>
     </nav>
 
-    <!-- Carousel -->
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" data-interval="1000">
-            <div class="carousel-item active" id="carouselone" style="cursor: pointer;" onclick="window.location='http://google.com';">
+      <!-- Page Content -->
+  
+    <div class="container"><!-- Avoid resizing issues -->
+        <div class="row justify-content-md-center">
+          <div class="col-lg-7">
+            <div class="card mt-4">
+              <img id="itemimg" class="card-img-top img-fluid" style="width: 600px; height:300px; object-fit:scale-down; "src="" alt="">
+              <div class="card-body">
+                <h3 id="itemname" class="card-title">ITEM NAME</h3>
+                <h4 id="itemprice">ITEM PRICE</h4>
+                <p id="itemdesc" class="card-text">ITEM DESCRIPTION</p>
+                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                4 stars
+              </div>
             </div>
-            <div class="carousel-item" id="carouseltwo" style="cursor: pointer;" onclick="window.location='http://google.com';">
+            <!-- /.card -->
+    
+            <div class="card card-outline-secondary my-4">
+              <div class="card-header">
+                Informazioni sul prodotto
+              </div>
+              <div class="card-body">
+                <small id="itemseller" class="text-muted">ITEMSELLER</small>
+                <br>
+                <small id="itemleft" class="text-muted">ITEMLEFT</small>
+                <br>
+                <small id="itemshipment" class="text-muted">ITEMSHIPMENT</small>
+              </div>
             </div>
-            <div class="carousel-item" id="carouselthree" style="cursor: pointer;" onclick="window.location='http://google.com';">
+            <!-- /.card -->
+
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header">
+                    Product Reviews
+                    </div>
+                    <div class="card-body">
+                <p>USER REVIEW</p>
+                <small class="text-muted">Posted by USERID</small>
+                <hr>
+                <a href="#" class="btn btn-success">Leave a Review</a>
+                </div>
             </div>
+            <!-- /.card -->
+    
+          </div>
+          <!-- /.col-lg-9 -->
+    
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-
-    <a href='itempage.html?itemid=1'>a link</a>
-
+    
+        
+      </div>
+      <!-- /.container -->
+    
+    
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
