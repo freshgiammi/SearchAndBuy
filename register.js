@@ -39,8 +39,7 @@ function Register(){
         window.alert("Utente registrato! Stai per essere reindirizzato alla pagina di login.");
         document.location.href="login.html";
     } else {
-        alert("Devi completare tutti i campi per registrarti!");
-        return console.log("Missing fields in form. Try again...");
+        return; //Form is invalid, abort function
     }
 }
 function isRegistered(userlist){
@@ -64,7 +63,10 @@ function formValidation(usertype){
         if (document.getElementById("nomecognome").value != '' && document.getElementById("email").value != '' && document.getElementById("password").value != '' && document.getElementById("telefono").value != '' && document.getElementById("nascita").value != '' && document.getElementById("indirizzo").value != '' && document.getElementById("useragreement").value != ''){
             //HACK: For some reason, pagamento is recognized as 'false' but evaluated as 'true'. Create another if to check.
             if(document.getElementById("pagamento").value != ''){
-                console.log(document.getElementById("pagamento").value);
+                if (document.getElementById("useragreement").value != "accept"){
+                    alert("Devi accettare i termini di contratto!");
+                    return false;
+                }
                 return true;
             }
         } 
@@ -72,11 +74,15 @@ function formValidation(usertype){
         if (document.getElementById("nomecognome").value != '' && document.getElementById("email").value != '' && document.getElementById("password").value != '' && document.getElementById("telefono").value != '' && document.getElementById("nascita").value != '' && document.getElementById("indirizzo").value != '' && document.getElementById("partitaiva") != '' && document.getElementById("attività") != '' && document.getElementById("useragreement").value != ''){
             //HACK: For some reason, pagamento is recognized as 'false' but evaluated as 'true'. Create another if to check.
             if(document.getElementById("pagamento").value != ''){
-                console.log(document.getElementById("pagamento").value);
+                if (document.getElementById("useragreement").value != "accept"){
+                    alert("Devi accettare i termini di contratto!");
+                    return false;
+                }
                 return true;
             }
         } 
     } 
     console.log("Form is not valid!");
+    alert("Devi completare tutti i campi!");
     return false;
 }
