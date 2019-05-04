@@ -9,11 +9,13 @@ var users=[
 	,
 	"nomecognome":"John Doe"
 	,
-	"nascita":"17-03-1970"
+	"nascita":"1970-03-17"
 	,
 	"email":"johndoe@email.com"
 	,
 	"indirizzo":"Street 404"
+	,
+	"telefono":"123-456789"
 	,
 	"password":"123"
 	,
@@ -23,7 +25,25 @@ var users=[
 	,
 	"pagamento":"pagamento"
 	,
-	"acquisti":[]
+	"acquisti":[
+		{
+			"itemid":1
+			,
+			"quantita":1
+			,
+			"data":"2019-04-20"
+		}
+	]
+	,
+	"recensioni":[
+		{
+			"itemid":1
+			,
+			"review":"Fantastico prodotto!"
+			,
+			"data":"2019-04-20"
+		}
+	]
 	}
       ]
      ,
@@ -41,6 +61,8 @@ var users=[
 	,
 	"indirizzo":"viaRossi1"
 	,
+	"telefono":"123-456789"
+	,
 	"password":"124"
 	,
 	"usertype":"vend"
@@ -52,6 +74,18 @@ var users=[
 	"partitaiva":"p.iva"
 	,
 	"pagamento":"pagamento"
+	,
+	"acquisti":[]
+	,
+	"recensioni":[
+		{
+			"itemid":1
+			,
+			"review":"Buono."
+			,
+			"data":"2019-04-28"
+		}
+	]
 	}
       ]
 

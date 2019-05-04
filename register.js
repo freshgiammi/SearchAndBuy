@@ -26,11 +26,11 @@ function Register(){
         }
 
         if (usertype=="cli"){
-            var newuser = ({"ID":(userlist[0].Clienti.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"cli","pagamento":document.getElementById("pagamento"),"useragreement":document.getElementById("useragreement"),"acquisti":new Array()});
+            var newuser = ({"ID":(userlist[0].Clienti.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"cli","pagamento":document.getElementById("pagamento"),"useragreement":document.getElementById("useragreement"),"acquisti":new Array(),"recensioni":new Array()});
             userlist[0].Clienti.splice(userlist[0].Clienti.length,0, newuser);
             localStorage.setItem("users", JSON.stringify(userlist));
             } else { 
-            var newuser = ({"ID":(userlist[0].Venditori.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"vend","pagamento":document.getElementById("pagamento"),"useragreement":document.getElementById("useragreement"),"attività":document.getElementById("attivita").value,"partitaiva":document.getElementById("partitaiva")}); 
+            var newuser = ({"ID":(userlist[0].Venditori.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"vend","pagamento":document.getElementById("pagamento"),"useragreement":document.getElementById("useragreement"),"attività":document.getElementById("attivita").value,"partitaiva":document.getElementById("partitaiva"),"acquisti":new Array(),"recensioni":new Array()}); 
             userlist[0].Venditori.splice(users[0].Venditori.length,0, newuser);
             localStorage.setItem("users", JSON.stringify(userlist));
         }

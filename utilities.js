@@ -17,12 +17,26 @@ function userinfo(){
     var userlist = JSON.parse(localStorage.getItem("users"));
     console.log("Userdata acquired. Dynamically changing page.");
 
+        // LOAD USER INFO
         if (usertype == "cli"){
             console.log("User is client!");
             for(var i=0;i<userlist[0].Clienti.length;i++){
                 if (userlist[0].Clienti[i].ID == userid){
-                    var name = userlist[0].Clienti[i].nomecognome;
+                    var nome = userlist[0].Clienti[i].nomecognome;
+                    var email = userlist[0].Clienti[i].email;
+                    var telefono = userlist[0].Clienti[i].telefono;
+                    var nascita = userlist[0].Clienti[i].nascita;
+                    var indirizzo = userlist[0].Clienti[i].indirizzo;
+                    var pagamento = userlist[0].Clienti[i].pagamento;
+                    var password = userlist[0].Clienti[i].password;
                     document.getElementById("usertype").innerHTML = "Cliente";
+                    document.getElementById("nomecognome").value = nome;
+                    document.getElementById("email").value = email;
+                    document.getElementById("telefono").value = telefono;
+                    document.getElementById("nascita").value = nascita; // YYYY-MM-DD format
+                    document.getElementById("indirizzo").value = indirizzo;
+                    document.getElementById("password").value = password;
+                    document.getElementById("pagamento").value = pagamento;
                 }
             }
         } else { 
@@ -34,9 +48,11 @@ function userinfo(){
                 }
             }
         }
-
-    document.getElementById("name").innerHTML = name;
+    document.getElementById("name").innerHTML = nome;
     console.log("Profile dynamically loaded.");
+
+        
+
 }
 
 // Logout, clears all data
@@ -94,6 +110,29 @@ function productinfo(productid){
                     document.getElementById("itemseller").innerHTML= "Venduto da: " +itemseller;
                   }
             }
+            // Build an array of reviews, sorted by date
+            var reviews = reviewbuilder(productid);
+            
+            for (i=0;i<reviews.length;i++){
+                var list = document.getElementById("reviews");
+
+                //Generate divider
+                var newhr = document.createElement("hr");
+                list.insertBefore(newhr, list.childNodes[0]);
+
+                // Generate reviewer
+                var newid = document.createElement("small");
+                newid.className += "text-muted";
+                var itembuyer = newid.appendChild(document.createTextNode("Acquistato da " +reviews[i].itembuyer +" in data: " +reviews[i].itemdate));
+                list.insertBefore(newid, list.childNodes[0]);
+
+                //Generate review
+                var newpara = document.createElement("p");
+                var review = newpara.appendChild(document.createTextNode(reviews[i].itemreview));
+                newpara.appendChild(review);
+                list.insertBefore(newpara, list.childNodes[0]);
+
+            }
         }
     }
     console.log("Product info dynamically loaded.");
@@ -130,4 +169,44 @@ function indexloader(){
 function profilepage(){
     navbarhider();
     userinfo();
+}
+
+// Generate array of reviews for a certain item, sorted by date
+function reviewbuilder(productid){
+    var itemlist = JSON.parse(localStorage.getItem("itemlist"));
+    var userlist = JSON.parse(localStorage.getItem("users"));
+    var reviews = new Array();
+
+    for(var i=0;i<userlist[0].Clienti.length;i++){
+        for(var j=0;j<userlist[0].Clienti[i].recensioni.length;j++){
+            if (userlist[0].Clienti[i].recensioni[j].itemid == productid){
+                var itemreview = userlist[0].Clienti[i].recensioni[j].review;
+                var itembuyer = userlist[0].Clienti[i].nomecognome;
+                var itemdate = userlist[0].Clienti[i].recensioni[j].data;
+                var review = ({"itemreview":itemreview, "itembuyer":itembuyer, "itemdate":itemdate});
+                reviews.push(review);
+            }
+        }
+    }
+
+    for(var i=0;i<userlist[0].Venditori.length;i++){
+        for(var j=0;j<userlist[0].Venditori[i].recensioni.length;j++){
+            if (userlist[0].Venditori[i].recensioni[j].itemid == productid){
+                var itemreview = userlist[0].Venditori[i].recensioni[j].review;
+                var itembuyer = userlist[0].Venditori[i].nomecognome;
+                var itemdate = userlist[0].Venditori[i].recensioni[j].data;
+                var review = ({"itemreview":itemreview, "itembuyer":itembuyer, "itemdate":itemdate});
+                reviews.push(review);
+            }
+        }
+    }
+
+    //Sort array from earlier to older
+    reviews.sort(function compare(a, b) {
+        var dateA = new Date(a.itemdate);
+        var dateB = new Date(b.itemdate);
+        return dateA - dateB;
+      });
+
+      return reviews;
 }

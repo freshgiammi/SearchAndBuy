@@ -1,4 +1,4 @@
-  //Create a userlist with all users
+//Create a userlist with all users
 var userlist = JSON.parse(localStorage.getItem("users"));
 console.log(userlist);
 
