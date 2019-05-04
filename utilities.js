@@ -113,7 +113,7 @@ function productinfo(productid){
             // Build an array of reviews, sorted by date
             var reviews = reviewbuilder(productid);
             
-            for (i=0;i<reviews.length;i++){
+            for (i=0;i<reviews.length;i++){ //TODO: Is a for-each better?
                 var list = document.getElementById("reviews");
 
                 //Generate divider
@@ -171,6 +171,53 @@ function profilepage(){
     userinfo();
 }
 
+function changeuserinfo(){
+    var userid = sessionStorage.getItem('userid');
+    var usertype = sessionStorage.getItem('usertype');
+    var userlist = JSON.parse(localStorage.getItem("users"));
+    // Create backup array since we're removing it to check for email consistency
+    if (usertype == "cli"){
+        var userinfo = userlist[0].Clienti[userid];
+     } else {
+        var userinfo = userlist[0].Venditori[userid];
+     } 
+
+    if (formValidation(usertype) == true){
+        if (isRegistered(userlist) == true){
+            return console.log("Mail already registered. Try again...");
+        }
+        if (usertype == "cli"){
+            userinfo.ID == userid
+            userinfo.nomecognome = document.getElementById("nomecognome").value;
+            userinfo.email = document.getElementById("email").value;
+            userinfo.telefono = document.getElementById("telefono").value;
+            userinfo.nascita = document.getElementById("nascita").value;
+            userinfo.indirizzo = document.getElementById("indirizzo").value;
+            userinfo.pagamento = document.getElementById("pagamento").value;
+            userinfo.password = document.getElementById("password").value;
+            userlist[0].Clienti.splice(userid,1,userinfo);
+        } else {
+            userinfo.ID == userid
+            userinfo.nome = document.getElementById("nomecognome").value;
+            userinfo.email = document.getElementById("email").value;
+            userinfo.telefono = document.getElementById("telefono").value;
+            userinfo.nascita = document.getElementById("nascita").value;
+            userinfo.indirizzo = document.getElementById("indirizzo").value;
+            userinfo.pagamento = document.getElementById("pagamento").value;
+            userinfo.password = document.getElementById("password").value;
+            userinfo.attivita = document.getElementById("attivita").value;
+            userinfo.partitaiva = document.getElementById("partitaiva").value;
+            userlist[0].Venditori.splice(userid,1,userinfo);
+        }
+    } else {
+        return; //Form is invalid, abort function
+    }
+
+    localStorage.setItem("users", JSON.stringify(userlist));
+    console.log("User data modified.")
+    alert("Dati utente modificati con successo!")
+}
+
 // Generate array of reviews for a certain item, sorted by date
 function reviewbuilder(productid){
     var itemlist = JSON.parse(localStorage.getItem("itemlist"));
@@ -209,4 +256,110 @@ function reviewbuilder(productid){
       });
 
       return reviews;
+}
+
+/*Hide and show forms for each user type*/
+function showHide() { 
+    var usertype = document.getElementById("usertype").value;
+    console.log(usertype);
+    if (usertype == "vend"){
+        document.getElementById("vendor").style.display = "block";
+        document.getElementById("client").style.display = "none";
+    } else if (usertype == "cli"){
+        document.getElementById("client").style.display = "block";
+        document.getElementById("vendor").style.display = "none";
+    }
+}
+
+//Register user into localStorage
+function Register(){
+    var usertype = document.getElementById("usertype").value;
+    if (formValidation(usertype) == true){
+        var userlist = JSON.parse(localStorage.getItem("users"));
+        if (isRegistered(userlist) == false){
+            return console.log("Mail already registered. Try again...");
+        }
+
+        if (usertype=="cli"){
+            var newuser = ({"ID":(userlist[0].Clienti.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"cli","pagamento":document.getElementById("pagamento"),"useragreement":document.getElementById("useragreement"),"acquisti":new Array(),"recensioni":new Array()});
+            userlist[0].Clienti.splice(userlist[0].Clienti.length,0, newuser);
+            localStorage.setItem("users", JSON.stringify(userlist));
+            } else { 
+            var newuser = ({"ID":(userlist[0].Venditori.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"vend","pagamento":document.getElementById("pagamento"),"useragreement":document.getElementById("useragreement"),"attività":document.getElementById("attivita").value,"partitaiva":document.getElementById("partitaiva"),"acquisti":new Array(),"recensioni":new Array()}); 
+            userlist[0].Venditori.splice(users[0].Venditori.length,0, newuser);
+            localStorage.setItem("users", JSON.stringify(userlist));
+        }
+        console.log("User added. New Userlist is:");
+        console.log(userlist);
+        window.alert("Utente registrato! Stai per essere reindirizzato alla pagina di login.");
+        document.location.href="login.html";
+    } else {
+        return; //Form is invalid, abort function
+    }
+}
+
+//Check if a Email is already registered
+function isRegistered(userlist){
+
+    //Load userid, used only to modify data. Undefined during register.
+    // If we're modifying, remove user from list.
+    // We add it back in in changeuserinfo(), since userid is only available when the user is logged on.
+    var userid = sessionStorage.getItem('userid');
+    var usertype = sessionStorage.getItem('usertype');
+    if (userid != null){
+        if (usertype == "cli"){
+            userlist[0].Clienti.splice(userid,1);
+        } else { 
+            userlist[0].Venditori.splice(userid,1);
+        }
+        console.log(userlist);
+    }
+    
+    for(var i=0;i<userlist[0].Clienti.length;i++){
+        if (userlist[0].Clienti[i].email == document.getElementById("email").value){
+            alert("Questa mail è già registrata! Utilizza un'altra mail.");
+            return true;
+        }
+      }
+      for(var i=0;i<userlist[0].Venditori.length;i++){
+        if (userlist[0].Venditori[i].email == document.getElementById("email").value){
+            alert("Questa mail è già registrata! Utilizza un'altra mail.");
+            return true;
+        }
+    }
+    return false;
+}
+
+//Check that the form is valid before submitting
+function formValidation(usertype){
+    if(usertype == "cli"){
+        if (document.getElementById("nomecognome").value != '' && document.getElementById("email").value != '' && document.getElementById("password").value != '' && document.getElementById("telefono").value != '' && document.getElementById("nascita").value != '' && document.getElementById("indirizzo").value != ''){
+            //HACK: For some reason, pagamento is recognized as 'false' but evaluated as 'true'. Create another if to check.
+            if(document.getElementById("pagamento").value != ''){
+                if(userid == null){
+                    if (document.getElementById("useragreement").value != "accept"){
+                        alert("Devi accettare i termini di contratto!");
+                        return false;
+                    }
+                }
+                return true;
+            }
+        } 
+    } else if (usertype == "vend") {
+        if (document.getElementById("nomecognome").value != '' && document.getElementById("email").value != '' && document.getElementById("password").value != '' && document.getElementById("telefono").value != '' && document.getElementById("nascita").value != '' && document.getElementById("indirizzo").value != '' && document.getElementById("partitaiva") != '' && document.getElementById("attività") != ''){
+            //HACK: For some reason, pagamento is recognized as 'false' but evaluated as 'true'. Create another if to check.
+            if(document.getElementById("pagamento").value != ''){
+                if(userid == null){
+                    if (document.getElementById("useragreement").value != "accept"){
+                        alert("Devi accettare i termini di contratto!");
+                        return false;
+                    }
+                }
+                return true;
+            }
+        } 
+    } 
+    console.log("Form is not valid!");
+    alert("Devi completare tutti i campi!");
+    return false;
 }
