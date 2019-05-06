@@ -10,16 +10,47 @@ function navbarhider() {
     }
 }
 
+//Who let the users in? 
+function Login(){
+    var userlist = JSON.parse(localStorage.getItem("users"));
+    console.log(userlist);
+    var email = document.getElementById("email").value;
+  	var password = document.getElementById("password").value;
+
+    //Look for user data 
+    for(var i=0;i<userlist[0].Clienti.length;i++){
+        if (userlist[0].Clienti[i].email == email &&userlist[0].Clienti[i].password == password){
+            sessionStorage.setItem("userid",i);
+            sessionStorage.setItem("usertype","cli");
+            console.log('Login Successful. Redirecting to homepage...');
+            document.location.href="index.html";
+        return false; //workaround: flush data to redirect user to index.html
+        }
+    }    
+            
+    for(var i=0;i<userlist[0].Venditori.length;i++){
+        if (userlist[0].Venditori[i].email == email &&userlist[0].Venditori[i].password == password){
+            sessionStorage.setItem("userid",i);
+            sessionStorage.setItem("usertype","vend");
+            console.log('Login Successful. Redirecting to homepage...');
+            document.location.href="index.html";
+        return false; //workaround: flush data to redirect user to index.html
+        }
+    }
+    window.alert("Email o Password errata");
+}
+
 // Dynamically build user profile based on userid stored in sessionStorage
 function userinfo(){
     var userid = sessionStorage.getItem('userid');
     var usertype = sessionStorage.getItem('usertype');
     var userlist = JSON.parse(localStorage.getItem("users"));
     console.log("Userdata acquired. Dynamically changing page.");
+    showHide();
 
         // LOAD USER INFO
         if (usertype == "cli"){
-            console.log("User is client!");
+           //console.log("User is client!");
             for(var i=0;i<userlist[0].Clienti.length;i++){
                 if (userlist[0].Clienti[i].ID == userid){
                     var nome = userlist[0].Clienti[i].nomecognome;
@@ -40,14 +71,34 @@ function userinfo(){
                 }
             }
         } else { 
-            console.log("User is vendor!");
+            //console.log("User is vendor!");
             for(var i=0;i<userlist[0].Venditori.length;i++){
                 if (userlist[0].Venditori[i].ID == userid){
-                    var name = userlist[0].Venditori[i].nomecognome;
+                    var nome = userlist[0].Venditori[i].nomecognome;
+                    var email = userlist[0].Venditori[i].email;
+                    var telefono = userlist[0].Venditori[i].telefono;
+                    var nascita = userlist[0].Venditori[i].nascita;
+                    var indirizzo = userlist[0].Venditori[i].indirizzo;
+                    var pagamento = userlist[0].Venditori[i].pagamento;
+                    var password = userlist[0].Venditori[i].password;
+                    var partitaiva = userlist[0].Venditori[i].partitaiva;
+                    var attività = userlist[0].Venditori[i].attività;
                     document.getElementById("usertype").innerHTML = "Venditore";
+                    document.getElementById("nomecognome").value = nome;
+                    document.getElementById("email").value = email;
+                    document.getElementById("telefono").value = telefono;
+                    document.getElementById("nascita").value = nascita; // YYYY-MM-DD format
+                    document.getElementById("indirizzo").value = indirizzo;
+                    document.getElementById("password").value = password;
+                    document.getElementById("pagamento").value = pagamento;
+                    document.getElementById("partitaiva").value = partitaiva;
+                    document.getElementById("attività").value = attività;
+
                 }
             }
         }
+
+        // LOAD USER INFO
     document.getElementById("name").innerHTML = nome;
     console.log("Profile dynamically loaded.");
 
@@ -135,6 +186,7 @@ function productinfo(productid){
             }
         }
     }
+    document.title = "Search&Buy - " +itemname;
     console.log("Product info dynamically loaded.");
 }
 
@@ -205,7 +257,7 @@ function changeuserinfo(){
             userinfo.indirizzo = document.getElementById("indirizzo").value;
             userinfo.pagamento = document.getElementById("pagamento").value;
             userinfo.password = document.getElementById("password").value;
-            userinfo.attivita = document.getElementById("attivita").value;
+            userinfo.attività = document.getElementById("attività").value;
             userinfo.partitaiva = document.getElementById("partitaiva").value;
             userlist[0].Venditori.splice(userid,1,userinfo);
         }
@@ -260,14 +312,21 @@ function reviewbuilder(productid){
 
 /*Hide and show forms for each user type*/
 function showHide() { 
-    var usertype = document.getElementById("usertype").value;
-    console.log(usertype);
+    //Detection phase: allow forms to be hidden during register phase
+    if (sessionStorage.getItem('usertype') == null){
+        var usertype = document.getElementById("usertype").value;
+    } else {
+        var usertype = sessionStorage.getItem('usertype');
+    }
+
     if (usertype == "vend"){
-        document.getElementById("vendor").style.display = "block";
-        document.getElementById("client").style.display = "none";
+        console.log("User is vendor. Showing fields");
+        document.getElementsByClassName("vendorinfo")[1].style.display = "inline-flex";
+        document.getElementsByClassName("vendorinfo")[0].style.display = "inline-flex";
     } else if (usertype == "cli"){
-        document.getElementById("client").style.display = "block";
-        document.getElementById("vendor").style.display = "none";
+        console.log("User is client. Hiding fields");
+        document.getElementsByClassName("vendorinfo")[1].style.display = "none";
+        document.getElementsByClassName("vendorinfo")[0].style.display = "none";
     }
 }
 
@@ -285,7 +344,7 @@ function Register(){
             userlist[0].Clienti.splice(userlist[0].Clienti.length,0, newuser);
             localStorage.setItem("users", JSON.stringify(userlist));
             } else { 
-            var newuser = ({"ID":(userlist[0].Venditori.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"vend","pagamento":document.getElementById("pagamento"),"useragreement":document.getElementById("useragreement"),"attività":document.getElementById("attivita").value,"partitaiva":document.getElementById("partitaiva"),"acquisti":new Array(),"recensioni":new Array()}); 
+            var newuser = ({"ID":(userlist[0].Venditori.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"vend","pagamento":document.getElementById("pagamento"),"useragreement":document.getElementById("useragreement"),"attività":document.getElementById("attività").value,"partitaiva":document.getElementById("partitaiva"),"acquisti":new Array(),"recensioni":new Array()}); 
             userlist[0].Venditori.splice(users[0].Venditori.length,0, newuser);
             localStorage.setItem("users", JSON.stringify(userlist));
         }
@@ -362,4 +421,33 @@ function formValidation(usertype){
     console.log("Form is not valid!");
     alert("Devi completare tutti i campi!");
     return false;
+}
+
+//Show selected item from profilepage navbar
+function view(type) {
+    if (type == "info"){
+        console.log("Show info section..");
+        document.getElementById("profile-info").style.display = "block";
+        document.getElementById("profile-orders").style.display = "none";
+        document.getElementById("profile-reviews").style.display = "none";
+        document.getElementById("info").classList.add("active");
+        document.getElementById("orders").classList.remove("active");
+        document.getElementById("reviews").classList.remove("active");
+    } else if (type == "orders"){
+        console.log("Show orders section..");
+        document.getElementById("profile-info").style.display = "none";
+        document.getElementById("profile-orders").style.display = "block";
+        document.getElementById("profile-reviews").style.display = "none";
+        document.getElementById("info").classList.remove("active");
+        document.getElementById("orders").classList.add("active");
+        document.getElementById("reviews").classList.remove("active");
+    } else if (type == "reviews"){
+        console.log("Show reviews section..");
+        document.getElementById("profile-info").style.display = "none";
+        document.getElementById("profile-orders").style.display = "none";
+        document.getElementById("profile-reviews").style.display = "block";
+        document.getElementById("info").classList.remove("active");
+        document.getElementById("orders").classList.remove("active");
+        document.getElementById("reviews").classList.add("active");
+    }
 }

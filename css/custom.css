@@ -88,6 +88,10 @@ h6 {
     display: none;
 }
 
+.vendorinfo{
+    display: none;
+}
+
 .custom-select {
     text-align: center;
     /* Firefox requires this */

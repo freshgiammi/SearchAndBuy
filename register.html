@@ -47,55 +47,66 @@
             </select>
         </form>
         
-    <div id="client"> 
        <br>
         <div class="container">
         <div class="card bg-light">
         <article class="card-body mx-auto" style="width: 350px;">
             <form>
                 <div class="form-group input-group"> <!-- TODO: Add ID fields for each input form -->
-                <div class="input-group-prepend"> <!-- Nome/Cognome -->
-                    <span class="input-group-text"> <i class="fas fa-fw fa-user"></i> </span>
-                 </div>
-                    <input id="nomecognome" class="form-control" placeholder="Nome e Cognome" type="text">
-                </div> 
-                <div class="form-group input-group">
-                <div class="input-group-prepend"> <!-- Email -->
-                    <span class="input-group-text"> <i class="fas fa-fw fa-envelope"></i> </span>
-                 </div>
-                    <input id="email" class="form-control" placeholder="Email" type="email">
-                </div> 
-                <div class="form-group input-group"> <!-- Numero di Telefono -->
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-fw fa-phone"></i> </span>
-                </div>
-                    <input id="telefono" class="form-control" placeholder="Numero di telefono" type="text">
-                </div>
-                <div class="form-group input-group"> <!-- Data di nascita -->
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-fw fa-calendar"></i> </span>
-                </div>
-                    <!-- TODO: add a better looking form -->
-                    <input id="nascita" class="form-control" placeholder="Data di nascita" type="date">
-                </div>
-                <div class="form-group input-group"> <!-- Indirizzo -->
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-fw fa-address-card"></i> </span>
-                </div>
-                    <input id="indirizzo" class="form-control" placeholder="Indirizzo" type="text" >
-                </div>
-                <div class="form-group input-group"> <!-- Password -->  
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-fw fa-lock"></i> </span>
-                </div>
-                    <input id="password" class="form-control" placeholder="Password" type="password">
-                </div>          
-                <div class="form-group input-group"> <!-- Carta di Credito -->  
-                <div class="input-group-prepend"> <!-- TODO: Check for credit card --> 
-                     <span class="input-group-text"> <i class="far fa-fw fa-credit-card"></i> </span>
-                </div>
-                    <input id="pagamento" class="form-control" placeholder="Carta Di Credito" type="text">
-                </div>          
+                    <div class="input-group-prepend"> <!-- Nome/Cognome -->
+                        <span class="input-group-text"> <i class="fas fa-fw fa-user"></i> </span>
+                        </div>
+                        <input id="nomecognome" class="form-control" placeholder="Nome e Cognome" type="text">
+                    </div> 
+                    <div class="form-group input-group">
+                    <div class="input-group-prepend"> <!-- Email -->
+                        <span class="input-group-text"> <i class="fas fa-fw fa-envelope"></i> </span>
+                        </div>
+                        <input id="email" class="form-control" placeholder="Email" type="email">
+                    </div> 
+                    <div class="form-group input-group"> <!-- Numero di Telefono -->
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-fw fa-phone"></i> </span>
+                    </div>
+                        <input id="telefono" class="form-control" placeholder="Numero di telefono" type="text">
+                    </div>
+                    <div class="form-group input-group"> <!-- Data di nascita -->
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-fw fa-calendar"></i> </span>
+                    </div>
+                        <!-- TODO: add a better looking form -->
+                        <input id="nascita" class="form-control" placeholder="Data di nascita" type="date">
+                    </div>
+                    <div class="form-group input-group"> <!-- Indirizzo -->
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-fw fa-address-card"></i> </span>
+                    </div>
+                        <input id="indirizzo" class="form-control" placeholder="Indirizzo" type="text" required>
+                    </div>
+                    <div class="form-group input-group"> <!-- Password -->  
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-fw fa-lock"></i> </span>
+                    </div>
+                        <input id="password" class="form-control" placeholder="Password" type="password">
+                    </div>          
+                    <div class="form-group input-group"> <!-- Carta di Credito -->  
+                    <div class="input-group-prepend"> <!-- TODO: Check for credit card --> 
+                            <span class="input-group-text"> <i class="far fa-fw fa-credit-card"></i> </span>
+                    </div>
+                        <input id="pagamento" class="form-control" placeholder="Carta Di Credito" type="text">
+                    </div>
+                    <div class="form-group input-group vendorinfo"> <!-- Tipo di attività -->
+                    <div class="input-group-prepend"> 
+                        <span class="input-group-text"> <i class="fas fa-fw fa-building"></i> </span>
+                    </div>
+                        <input id="attività" class="form-control" placeholder="Tipo di attività" type="text">
+                    </div> 
+                    <div class="form-group input-group vendorinfo"> <!-- Partita IVA -->
+                    <div class="input-group-prepend"> 
+                        <span class="input-group-text"> <i class="fas fa-fw fa-percent"></i> </span>
+                    </div>
+                        <input id="partitaiva" class="form-control" placeholder="Partita IVA" type="text">
+                    </div>           
                 <form>
                     <select class="custom-select" id="useragreement">
                         <option value="" selected disabled hidden>Accetti i termini di contratto?</option>
@@ -111,84 +122,6 @@
         </article>
         </div> <!-- /card -->
         </div> <!--/container -->
-        </div>
-    <div id="vendor"> 
-       <br>
-        <div class="container">
-        <div class="card bg-light">
-        <article class="card-body mx-auto" style="width: 350px;">
-            <form>
-                <div class="form-group input-group"><!-- Nome/Cognome -->
-                <div class="input-group-prepend"> 
-                    <span class="input-group-text"> <i class="fas fa-fw fa-user"></i> </span>
-                 </div>
-                    <input id="nomecognome" class="form-control" placeholder="Nome e Cognome" type="text">
-                </div> 
-                <div class="form-group input-group">
-                <div class="input-group-prepend"> <!-- Email -->
-                    <span class="input-group-text"> <i class="fas fa-fw fa-envelope"></i> </span>
-                 </div>
-                    <input id="email" class="form-control" placeholder="Email" type="email">
-                </div> 
-                <div class="form-group input-group"> <!-- Numero di Telefono -->
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-fw fa-phone"></i> </span>
-                </div>
-                    <input id="telefono" class="form-control" placeholder="Numero di telefono" type="text">
-                </div>
-                <div class="form-group input-group"> <!-- Tipo di attività -->
-                <div class="input-group-prepend"> 
-                    <span class="input-group-text"> <i class="fas fa-fw fa-building"></i> </span>
-                 </div>
-                    <input id="attività" class="form-control" placeholder="Tipo di attività" type="text">
-                </div> 
-                <div class="form-group input-group"> <!-- Partita IVA -->
-                <div class="input-group-prepend"> 
-                    <span class="input-group-text"> <i class="fas fa-fw fa-percent"></i> </span>
-                 </div>
-                    <input id="partitaiva" class="form-control" placeholder="Partita IVA" type="text">
-                </div> 
-                <div class="form-group input-group"> <!-- Data di nascita -->
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-fw fa-calendar"></i> </span>
-                </div>
-                    <!-- TODO: add a better looking form -->
-                    <input id="nascita" class="form-control" placeholder="Data di nascita" type="date">
-                </div>
-                <div class="form-group input-group"> <!-- Indirizzo -->
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-fw fa-address-card"></i> </span>
-                </div>
-                    <input id="indirizzo" class="form-control" placeholder="Indirizzo" type="text">
-                </div>
-                <div class="form-group input-group"> <!-- Password -->  
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-fw fa-lock"></i> </span>
-                </div>
-                    <input id="password" class="form-control" placeholder="Password" type="password">
-                </div>          
-                <div class="form-group input-group"> <!-- Carta di Credito -->  
-                <div class="input-group-prepend"> <!-- TODO: Check for credit card --> 
-                     <span class="input-group-text"> <i class="far fa-fw fa-credit-card"></i> </span>
-                </div>
-                    <input id="pagamento" class="form-control" placeholder="Carta Di Credito" type="text">
-                </div>                          
-                <form>
-                    <select class="custom-select" id="useragreement">
-                        <option value="" selected disabled hidden>Accetti i termini di contratto?</option>
-                        <option value="accept" >Accetto</option>
-                        <option value="deny">Non accetto</option>
-                    </select>
-                </form>
-                <br>
-                <div class="form-group"> <!-- TODO: Create javascript code to register -->  
-                      <button type="submit" class="btn btn-primary btn-block"  onclick="Register()"> Crea Account </button>
-                </div>                        
-            </form>
-        </article>
-        </div> <!-- /card -->
-        </div> <!--/container -->
-    </div>
     <br>
     <p class="text-center">Hai già un account? <a href="login.html">Log In</a> </p> 
     </center>

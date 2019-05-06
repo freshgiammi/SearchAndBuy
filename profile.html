@@ -88,18 +88,18 @@
 				</div>
 				<div class="profile-usermenu">
 					<ul class="nav flex-column">
-						<li class="nav-item active">
-							<a class="nav-link" href="#">
+						<li id="info" class="nav-item active">
+							<a id="info"class="nav-link" href="#" onclick="view('info')">
                             <i class="fas fa-fw fa-user"></i>
 							Informazioni</a>
 						</li>
-						<li class="nav-item">
-                            <a class="nav-link" href="#">
+						<li id="orders" class="nav-item">
+                            <a class="nav-link" href="#" onclick="view('orders')">
                             <i class="fas fa-fw fa-shopping-cart"></i>
 							Ordini Effettuati</a>
 						</li>
-						<li class="nav-item">
-                            <a class="nav-link" href="#" target="_blank">
+						<li id="reviews" class="nav-item">
+                            <a class="nav-link" href="#" onclick="view('reviews')">
                             <i class="fas fa-fw fa-star"></i>
 							Recensioni</a>
                         </li>
@@ -115,55 +115,77 @@
 		</div>
 		<div class="col-md-9">
             <div class="profile-content"> <!-- TODO: Add content based on sidebar active link -->
-                <div class="card" style="text-align: center;">
+                <div id="profile-info" class="card" style="text-align: center;">
                     <div class="card-body">  
-                            <form>
-                                    <div class="form-group input-group"> <!-- TODO: Add ID fields for each input form -->
-                                    <div class="input-group-prepend"> <!-- Nome/Cognome -->
-                                        <span class="input-group-text"> <i class="fas fa-fw fa-user"></i> </span>
-                                     </div>
-                                        <input id="nomecognome" class="form-control" placeholder="Nome e Cognome" type="text">
-                                    </div> 
-                                    <div class="form-group input-group">
-                                    <div class="input-group-prepend"> <!-- Email -->
-                                        <span class="input-group-text"> <i class="fas fa-fw fa-envelope"></i> </span>
-                                     </div>
-                                        <input id="email" class="form-control" placeholder="Email" type="email">
-                                    </div> 
-                                    <div class="form-group input-group"> <!-- Numero di Telefono -->
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"> <i class="fas fa-fw fa-phone"></i> </span>
-                                    </div>
-                                        <input id="telefono" class="form-control" placeholder="Numero di telefono" type="text">
-                                    </div>
-                                    <div class="form-group input-group"> <!-- Data di nascita -->
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"> <i class="fas fa-fw fa-calendar"></i> </span>
-                                    </div>
-                                        <!-- TODO: add a better looking form -->
-                                        <input id="nascita" class="form-control" placeholder="Data di nascita" type="date">
-                                    </div>
-                                    <div class="form-group input-group"> <!-- Indirizzo -->
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"> <i class="fas fa-fw fa-address-card"></i> </span>
-                                    </div>
-                                        <input id="indirizzo" class="form-control" placeholder="Indirizzo" type="text" required>
-                                    </div>
-                                    <div class="form-group input-group"> <!-- Password -->  
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"> <i class="fas fa-fw fa-lock"></i> </span>
-                                    </div>
-                                        <input id="password" class="form-control" placeholder="Password" type="password">
-                                    </div>          
-                                    <div class="form-group input-group"> <!-- Carta di Credito -->  
-                                    <div class="input-group-prepend"> <!-- TODO: Check for credit card --> 
-                                         <span class="input-group-text"> <i class="far fa-fw fa-credit-card"></i> </span>
-                                    </div>
-                                        <input id="pagamento" class="form-control" placeholder="Carta Di Credito" type="text">
-                                    </div>  
-                                    <button type="button" class="btn btn-success btn-sm" onclick="changeuserinfo()">Modifica</button>                               
-                                </form>                  
+                        <form>
+                            <div class="form-group input-group"> <!-- TODO: Add ID fields for each input form -->
+                            <div class="input-group-prepend"> <!-- Nome/Cognome -->
+                                <span class="input-group-text"> <i class="fas fa-fw fa-user"></i> </span>
+                                </div>
+                                <input id="nomecognome" class="form-control" placeholder="Nome e Cognome" type="text">
+                            </div> 
+                            <div class="form-group input-group">
+                            <div class="input-group-prepend"> <!-- Email -->
+                                <span class="input-group-text"> <i class="fas fa-fw fa-envelope"></i> </span>
+                                </div>
+                                <input id="email" class="form-control" placeholder="Email" type="email">
+                            </div> 
+                            <div class="form-group input-group"> <!-- Numero di Telefono -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fas fa-fw fa-phone"></i> </span>
+                            </div>
+                                <input id="telefono" class="form-control" placeholder="Numero di telefono" type="text">
+                            </div>
+                            <div class="form-group input-group"> <!-- Data di nascita -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fas fa-fw fa-calendar"></i> </span>
+                            </div>
+                                <!-- TODO: add a better looking form -->
+                                <input id="nascita" class="form-control" placeholder="Data di nascita" type="date">
+                            </div>
+                            <div class="form-group input-group"> <!-- Indirizzo -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fas fa-fw fa-address-card"></i> </span>
+                            </div>
+                                <input id="indirizzo" class="form-control" placeholder="Indirizzo" type="text" required>
+                            </div>
+                            <div class="form-group input-group"> <!-- Password -->  
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fas fa-fw fa-lock"></i> </span>
+                            </div>
+                                <input id="password" class="form-control" placeholder="Password" type="password">
+                            </div>          
+                            <div class="form-group input-group"> <!-- Carta di Credito -->  
+                            <div class="input-group-prepend"> <!-- TODO: Check for credit card --> 
+                                    <span class="input-group-text"> <i class="far fa-fw fa-credit-card"></i> </span>
+                            </div>
+                                <input id="pagamento" class="form-control" placeholder="Carta Di Credito" type="text">
+                            </div>
+                            <div class="form-group input-group vendorinfo"> <!-- Tipo di attività -->
+                            <div class="input-group-prepend"> 
+                                <span class="input-group-text"> <i class="fas fa-fw fa-building"></i> </span>
+                            </div>
+                                <input id="attività" class="form-control" placeholder="Tipo di attività" type="text">
+                            </div> 
+                            <div class="form-group input-group vendorinfo"> <!-- Partita IVA -->
+                            <div class="input-group-prepend"> 
+                                <span class="input-group-text"> <i class="fas fa-fw fa-percent"></i> </span>
+                            </div>
+                                <input id="partitaiva" class="form-control" placeholder="Partita IVA" type="text">
+                            </div>   
+                            <button type="button" class="btn btn-success btn-sm" onclick="changeuserinfo()">Modifica</button>                               
+                        </form>                  
                     </div>
+                </div>
+                <div id="profile-orders" class="card" style="text-align: center;">
+                    <div class="card-body">
+                        lol2
+                    </div>
+                </div>
+                <div id="profile-reviews" class="card" style="text-align: center;">
+                        <div class="card-body">
+                            lol3
+                        </div>
                 </div>
             </div>
 		</div>
