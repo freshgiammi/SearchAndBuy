@@ -27,9 +27,7 @@ var users=[
 	,
 	"acquisti":[
 		{
-			"itemid":1
-			,
-			"quantita":1
+			"itemid":0
 			,
 			"data":"2019-04-20"
 		}
@@ -37,7 +35,7 @@ var users=[
 	,
 	"recensioni":[
 		{
-			"itemid":1
+			"itemid":0
 			,
 			"review":"Fantastico prodotto!"
 			,
@@ -75,11 +73,17 @@ var users=[
 	,
 	"pagamento":"pagamento"
 	,
-	"acquisti":[]
+	"acquisti":[
+		{
+			"itemid":0
+			,
+			"data":"2019-04-28"
+		}
+	]
 	,
 	"recensioni":[
 		{
-			"itemid":1
+			"itemid":0
 			,
 			"review":"Buono."
 			,

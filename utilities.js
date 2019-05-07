@@ -45,61 +45,132 @@ function userinfo(){
     var userid = sessionStorage.getItem('userid');
     var usertype = sessionStorage.getItem('usertype');
     var userlist = JSON.parse(localStorage.getItem("users"));
+    var itemlist = JSON.parse(localStorage.getItem('itemlist'));
     console.log("Userdata acquired. Dynamically changing page.");
     showHide();
 
         // LOAD USER INFO
         if (usertype == "cli"){
-           //console.log("User is client!");
-            for(var i=0;i<userlist[0].Clienti.length;i++){
-                if (userlist[0].Clienti[i].ID == userid){
-                    var nome = userlist[0].Clienti[i].nomecognome;
-                    var email = userlist[0].Clienti[i].email;
-                    var telefono = userlist[0].Clienti[i].telefono;
-                    var nascita = userlist[0].Clienti[i].nascita;
-                    var indirizzo = userlist[0].Clienti[i].indirizzo;
-                    var pagamento = userlist[0].Clienti[i].pagamento;
-                    var password = userlist[0].Clienti[i].password;
-                    document.getElementById("usertype").innerHTML = "Cliente";
-                    document.getElementById("nomecognome").value = nome;
-                    document.getElementById("email").value = email;
-                    document.getElementById("telefono").value = telefono;
-                    document.getElementById("nascita").value = nascita; // YYYY-MM-DD format
-                    document.getElementById("indirizzo").value = indirizzo;
-                    document.getElementById("password").value = password;
-                    document.getElementById("pagamento").value = pagamento;
+        //console.log("User is client!");
+            document.getElementById("name").innerHTML =  userlist[0].Clienti[userid].nomecognome;
+            document.getElementById("usertype").innerHTML = "Cliente";
+            document.getElementById("nomecognome").value = userlist[0].Clienti[userid].nomecognome;
+            document.getElementById("email").value  = userlist[0].Clienti[userid].email;
+            document.getElementById("telefono").value= userlist[0].Clienti[userid].telefono;
+            document.getElementById("nascita").value = userlist[0].Clienti[userid].nascita;
+            document.getElementById("indirizzo").value = userlist[0].Clienti[userid].indirizzo;
+            document.getElementById("pagamento").value = userlist[0].Clienti[userid].pagamento;
+            document.getElementById("password").value = userlist[0].Clienti[userid].password;
+            // LOAD USER ORDERS
+            for(var i=0;i<userlist[0].Clienti[userid].acquisti.length;i++){
+                var itemid = userlist[0].Clienti[userid].acquisti[i].itemid;
+                var data = userlist[0].Clienti[userid].acquisti[i].data;
+                for (i=0;i<userlist[0].Clienti[userid].acquisti.length;i++){ //TODO: Is a for-each better?
+                    var itemid = userlist[0].Clienti[userid].acquisti[i].itemid;
+                    var list = document.getElementById("orderlist");
+            
+                    //Generate divider
+                    var newhr = document.createElement("hr");
+                    list.insertBefore(newhr, list.childNodes[0]);
+            
+                    // Generate reviewer
+                    var newid = document.createElement("small");
+                    newid.className += "text-muted";
+                    newid.appendChild(document.createTextNode("Ordine effettuato in data: " +userlist[0].Clienti[userid].acquisti[i].data));
+                    list.insertBefore(newid, list.childNodes[0]);
+            
+                    //Generate review
+                    var newpara = document.createElement("p");
+                    var review = newpara.appendChild(document.createTextNode(itemlist[itemid].Nome));
+                    newpara.appendChild(review);
+                    list.insertBefore(newpara, list.childNodes[0]);
                 }
             }
+            // LOAD USER REVIEWS
+            for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
+                var itemid = userlist[0].Clienti[userid].recensioni[i].itemid;
+                var list = document.getElementById("reviewlist");
+            
+                //Generate divider
+                var newhr = document.createElement("hr");
+                list.insertBefore(newhr, list.childNodes[0]);
+        
+                // Generate reviewer
+                var newid = document.createElement("small");
+                newid.className += "text-muted";
+                newid.appendChild(document.createTextNode("Hai recensito: "+itemlist[itemid].Nome +" in data " +userlist[0].Clienti[userid].recensioni[i].data));
+                list.insertBefore(newid, list.childNodes[0]);
+        
+                //Generate review
+                var newpara = document.createElement("p");
+                var review = newpara.appendChild(document.createTextNode(userlist[0].Clienti[userid].recensioni[i].review));
+                newpara.appendChild(review);
+                list.insertBefore(newpara, list.childNodes[0]);
+            }
+        
         } else { 
             //console.log("User is vendor!");
-            for(var i=0;i<userlist[0].Venditori.length;i++){
-                if (userlist[0].Venditori[i].ID == userid){
-                    var nome = userlist[0].Venditori[i].nomecognome;
-                    var email = userlist[0].Venditori[i].email;
-                    var telefono = userlist[0].Venditori[i].telefono;
-                    var nascita = userlist[0].Venditori[i].nascita;
-                    var indirizzo = userlist[0].Venditori[i].indirizzo;
-                    var pagamento = userlist[0].Venditori[i].pagamento;
-                    var password = userlist[0].Venditori[i].password;
-                    var partitaiva = userlist[0].Venditori[i].partitaiva;
-                    var attività = userlist[0].Venditori[i].attività;
-                    document.getElementById("usertype").innerHTML = "Venditore";
-                    document.getElementById("nomecognome").value = nome;
-                    document.getElementById("email").value = email;
-                    document.getElementById("telefono").value = telefono;
-                    document.getElementById("nascita").value = nascita; // YYYY-MM-DD format
-                    document.getElementById("indirizzo").value = indirizzo;
-                    document.getElementById("password").value = password;
-                    document.getElementById("pagamento").value = pagamento;
-                    document.getElementById("partitaiva").value = partitaiva;
-                    document.getElementById("attività").value = attività;
-
+            document.getElementById("name").innerHTML =  userlist[0].Venditori[userid].nomecognome;
+            document.getElementById("usertype").innerHTML = "Venditore";
+            document.getElementById("nomecognome").value = userlist[0].Venditori[userid].nomecognome;
+            document.getElementById("email").value  = userlist[0].Venditori[userid].email;
+            document.getElementById("telefono").value= userlist[0].Venditori[userid].telefono;
+            document.getElementById("nascita").value = userlist[0].Venditori[userid].nascita;
+            document.getElementById("indirizzo").value = userlist[0].Venditori[userid].indirizzo;
+            document.getElementById("pagamento").value = userlist[0].Venditori[userid].pagamento;
+            document.getElementById("password").value = userlist[0].Venditori[userid].password;
+            document.getElementById("partitaiva").value = userlist[0].Venditori[userid].partitaiva;
+            document.getElementById("attività").value = userlist[0].Venditori[userid].attività;
+            // LOAD USER ORDERS
+            for(var i=0;i<userlist[0].Venditori[userid].acquisti.length;i++){
+                var itemid = userlist[0].Venditori[userid].acquisti[i].itemid;
+                var data = userlist[0].Venditori[userid].acquisti[i].data;
+                for (i=0;i<userlist[0].Venditori[userid].acquisti.length;i++){ //TODO: Is a for-each better?
+                    var itemid = userlist[0].Venditori[userid].acquisti[i].itemid;
+                    var list = document.getElementById("orderlist");
+            
+                    //Generate divider
+                    var newhr = document.createElement("hr");
+                    list.insertBefore(newhr, list.childNodes[0]);
+            
+                    // Generate reviewer
+                    var newid = document.createElement("small");
+                    newid.className += "text-muted";
+                    newid.appendChild(document.createTextNode("Ordine effettuato in data: " +userlist[0].Venditori[userid].acquisti[i].data));
+                    list.insertBefore(newid, list.childNodes[0]);
+            
+                    //Generate review
+                    var newpara = document.createElement("p");
+                    var review = newpara.appendChild(document.createTextNode("Hai acquistato: " +itemlist[itemid].Nome));
+                    newpara.appendChild(review);
+                    list.insertBefore(newpara, list.childNodes[0]);
                 }
+            }
+            // LOAD USER REVIEWS
+            for(var i=0;i<userlist[0].Venditori[userid].recensioni.length;i++){
+                var itemid = userlist[0].Venditori[userid].recensioni[i].itemid;
+                var data = userlist[0].Venditori[userid].recensioni[i].data;
+                var recensione = userlist[0].Venditori[userid].recensioni[i].review;
+                var list = document.getElementById("reviewlist");
+            
+                //Generate divider
+                var newhr = document.createElement("hr");
+                list.insertBefore(newhr, list.childNodes[0]);
+        
+                // Generate reviewer
+                var newid = document.createElement("small");
+                newid.className += "text-muted";
+                newid.appendChild(document.createTextNode("Hai recensito: "+itemlist[itemid].Nome +" in data " +userlist[0].Venditori[userid].acquisti[i].data));
+                list.insertBefore(newid, list.childNodes[0]);
+        
+                //Generate review
+                var newpara = document.createElement("p");
+                var review = newpara.appendChild(document.createTextNode(itemlist[itemid].review));
+                newpara.appendChild(review);
+                list.insertBefore(newpara, list.childNodes[0]);
             }
         }
 
-        // LOAD USER INFO
-    document.getElementById("name").innerHTML = nome;
     console.log("Profile dynamically loaded.");
 
         
@@ -140,51 +211,41 @@ function deleteaccount(){
 function productinfo(productid){
     var itemlist = JSON.parse(localStorage.getItem("itemlist"));
     var userlist = JSON.parse(localStorage.getItem("users"));
-    for(var i=0;i<itemlist.length;i++){
-        if (itemlist[i].ID == productid){
-            var itemname = itemlist[i].Nome;
-            var itemdesc = itemlist[i].Descrizione;
-            var itemprice =itemlist[i].Prezzo;
-            var itemimg = itemlist[i].Immagine;
-            var itemleft = itemlist[i].Quantita;
-            var itemshipment = itemlist[i].Spedizione;
-            var itemseller = itemlist[i].VendorID;
-            document.getElementById("itemname").innerHTML = itemname;
-            document.getElementById("itemdesc").innerHTML = itemdesc;
-            document.getElementById("itemprice").innerHTML = itemprice;
-            document.getElementById("itemimg").src = itemimg;
-            document.getElementById("itemleft").innerHTML = "Rimasti in magazzino: " +itemleft;
-            document.getElementById("itemshipment").innerHTML = "Metodo di spedizione: " +itemshipment;
-            for(var i=0;i<userlist[0].Venditori.length;i++){
-                if (userlist[0].Venditori[i].ID == itemseller){
-                    var itemseller = userlist[0].Venditori[i].attività;
-                    document.getElementById("itemseller").innerHTML= "Venduto da: " +itemseller;
-                  }
+    document.getElementById("itemname").innerHTML = itemlist[productid].Nome;
+    document.getElementById("itemdesc").innerHTML = itemlist[productid].Descrizione;
+    document.getElementById("itemprice").innerHTML =itemlist[productid].Prezzo;
+    document.getElementById("itemimg").src= itemlist[productid].Immagine;
+    document.getElementById("itemleft").innerHTML = "Rimasti in magazzino: " +itemlist[productid].Quantita;
+    document.getElementById("itemshipment").innerHTML = "Metodo di spedizione: " +itemlist[productid].VendorID;
+    var itemseller = itemlist[productid].VendorID;
+    for(var i=0;i<userlist[0].Venditori.length;i++){
+        if (userlist[0].Venditori[i].ID == itemseller){
+            var itemseller = userlist[0].Venditori[i].attività;
+            document.getElementById("itemseller").innerHTML= "Venduto da: " +itemseller;
             }
-            // Build an array of reviews, sorted by date
-            var reviews = reviewbuilder(productid);
-            
-            for (i=0;i<reviews.length;i++){ //TODO: Is a for-each better?
-                var list = document.getElementById("reviews");
+    }
+    // Build an array of reviews, sorted by date
+    var reviews = reviewbuilder(productid);
+    
+    for (i=0;i<reviews.length;i++){ //TODO: Is a for-each better?
+        var list = document.getElementById("reviews");
 
-                //Generate divider
-                var newhr = document.createElement("hr");
-                list.insertBefore(newhr, list.childNodes[0]);
+        //Generate divider
+        var newhr = document.createElement("hr");
+        list.insertBefore(newhr, list.childNodes[0]);
 
-                // Generate reviewer
-                var newid = document.createElement("small");
-                newid.className += "text-muted";
-                var itembuyer = newid.appendChild(document.createTextNode("Acquistato da " +reviews[i].itembuyer +" in data: " +reviews[i].itemdate));
-                list.insertBefore(newid, list.childNodes[0]);
+        // Generate reviewer
+        var newid = document.createElement("small");
+        newid.className += "text-muted";
+        newid.appendChild(document.createTextNode("Acquistato da " +reviews[i].itembuyer +" in data: " +reviews[i].itemdate));
+        list.insertBefore(newid, list.childNodes[0]);
 
-                //Generate review
-                var newpara = document.createElement("p");
-                var review = newpara.appendChild(document.createTextNode(reviews[i].itemreview));
-                newpara.appendChild(review);
-                list.insertBefore(newpara, list.childNodes[0]);
+        //Generate review
+        var newpara = document.createElement("p");
+        var review = newpara.appendChild(document.createTextNode(reviews[i].itemreview));
+        newpara.appendChild(review);
+        list.insertBefore(newpara, list.childNodes[0]);
 
-            }
-        }
     }
     document.title = "Search&Buy - " +itemname;
     console.log("Product info dynamically loaded.");
@@ -193,11 +254,7 @@ function productinfo(productid){
 // Load Product info
 function productloader(){
     navbarhider();
-    // Use URLSearchParams to retrieve the queryID
-    const urlParams = new URLSearchParams(window.location.search);
-    const itemid = urlParams.get('itemid');
-    console.log("Acquired itemid with value: " +itemid)
-    productinfo(itemid);
+    productinfo(urlRetriever());
 }
 
 // Build userlist and itemlist when index is loaded
@@ -450,4 +507,93 @@ function view(type) {
         document.getElementById("orders").classList.remove("active");
         document.getElementById("reviews").classList.add("active");
     }
+}
+
+// TODO: CHECK IF THIS WORKS FOR REAL
+function sendReview(){
+    var usertype = sessionStorage.getItem('usertype');
+    var userid = sessionStorage.getItem('userid');
+    var itemid = urlRetriever();
+
+    if (isBought(usertype,itemid) == false){
+        return alert("Non hai ancora acquistato questo articolo!");
+    }
+
+    if (usertype == "cli"){
+        if (isReviewed(usertype,itemid) == true){
+            if (confirm("Hai già lasciato una recensione, vuoi modificarla?")){
+                for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
+                    if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid){
+                        userlist[0].Clienti[userid].recensioni[i].review = document.getElementById("review").value;
+                    }
+                }
+            }
+        } else {
+            for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
+                if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid){
+                    userlist[0].Clienti[userid].recensioni[i].review = document.getElementById("review").value;
+                }
+            }
+        } 
+    } else {
+        if (isReviewed(usertype,itemid) == true){
+            if (confirm("Hai già lasciato una recensione, vuoi modificarla?")){
+                for(var i=0;i<userlist[0].Venditori[userid].recensioni.length;i++){
+                    if (userlist[0].Venditori[userid].recensioni[i].itemid == itemid){
+                        userlist[0].Venditori[userid].recensioni[i].review = document.getElementById("review").value;
+                    }
+                }
+            }
+        } else {
+            for(var i=0;i<userlist[0].Venditori[userid].recensioni.length;i++){
+                if (userlist[0].Venditori[userid].recensioni[i].itemid == itemid){
+                    userlist[0].Venditori[userid].recensioni[i].review = document.getElementById("review").value;
+                }
+            }
+        }
+    }
+}
+
+// Use URLSearchParams to retrieve the queryID
+function urlRetriever(){
+    const urlParams = new URLSearchParams(window.location.search);
+    const itemid = urlParams.get('itemid');
+    console.log("Acquired itemid with value: " +itemid)
+    return itemid;
+}
+
+//Check if user has bought a certain item
+function isBought(usertype, itemid){
+    if (usertype == "cli"){
+        for(var i=0;i<userlist[0].Clienti[userid].acquisti.length;i++){
+            if (userlist[0].Clienti[userid].acquisti[i].itemid == itemid){
+                return true;
+            }
+        }
+    } else {
+        for(var i=0;i<userlist[0].Venditori[userid].acquisti.length;i++){
+            if (userlist[0].Venditori[userid].acquisti[i].itemid == itemid){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+//Check if user has reviewed a certain item
+function isReviewed(usertype, itemid){
+    if (usertype == "cli"){
+        for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
+            if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid){
+                return true;
+            }
+        }
+    } else {
+        for(var i=0;i<userlist[0].Venditori[userid].recensioni.length;i++){
+            if (userlist[0].Venditori[userid].recensioni[i].itemid == itemid){
+                return true;
+            }
+        }
+    }
+    return false;
 }
