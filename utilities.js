@@ -378,10 +378,12 @@ function showHide() {
 
     if (usertype == "vend"){
         console.log("User is vendor. Showing fields");
+        document.getElementById("register").style.display = "block";
         document.getElementsByClassName("vendorinfo")[1].style.display = "inline-flex";
         document.getElementsByClassName("vendorinfo")[0].style.display = "inline-flex";
     } else if (usertype == "cli"){
         console.log("User is client. Hiding fields");
+        document.getElementById("register").style.display = "block";
         document.getElementsByClassName("vendorinfo")[1].style.display = "none";
         document.getElementsByClassName("vendorinfo")[0].style.display = "none";
     }
@@ -392,7 +394,7 @@ function Register(){
     var usertype = document.getElementById("usertype").value;
     if (formValidation(usertype) == true){
         var userlist = JSON.parse(localStorage.getItem("users"));
-        if (isRegistered(userlist) == false){
+        if (isRegistered(userlist) == true){
             return console.log("Mail already registered. Try again...");
         }
 
@@ -400,7 +402,7 @@ function Register(){
             var newuser = ({"ID":(userlist[0].Clienti.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"cli","pagamento":document.getElementById("pagamento"),"useragreement":document.getElementById("useragreement"),"acquisti":new Array(),"recensioni":new Array()});
             userlist[0].Clienti.splice(userlist[0].Clienti.length,0, newuser);
             localStorage.setItem("users", JSON.stringify(userlist));
-            } else { 
+            } else if (usertype == "vend") { 
             var newuser = ({"ID":(userlist[0].Venditori.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"vend","pagamento":document.getElementById("pagamento"),"useragreement":document.getElementById("useragreement"),"attività":document.getElementById("attività").value,"partitaiva":document.getElementById("partitaiva"),"acquisti":new Array(),"recensioni":new Array()}); 
             userlist[0].Venditori.splice(users[0].Venditori.length,0, newuser);
             localStorage.setItem("users", JSON.stringify(userlist));
@@ -425,7 +427,7 @@ function isRegistered(userlist){
     if (userid != null){
         if (usertype == "cli"){
             userlist[0].Clienti.splice(userid,1);
-        } else { 
+        } else if (usertype =="vend") { 
             userlist[0].Venditori.splice(userid,1);
         }
         console.log(userlist);
