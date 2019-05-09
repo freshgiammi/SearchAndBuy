@@ -378,14 +378,16 @@ function showHide() {
 
     if (usertype == "vend"){
         console.log("User is vendor. Showing fields");
-        document.getElementById("register").style.display = "block";
         document.getElementsByClassName("vendorinfo")[1].style.display = "inline-flex";
         document.getElementsByClassName("vendorinfo")[0].style.display = "inline-flex";
+        if (sessionStorage.getItem('userid') == null) // Detect register form via userid
+            document.getElementById("register").style.display = "block";
     } else if (usertype == "cli"){
         console.log("User is client. Hiding fields");
-        document.getElementById("register").style.display = "block";
         document.getElementsByClassName("vendorinfo")[1].style.display = "none";
         document.getElementsByClassName("vendorinfo")[0].style.display = "none";
+        if (sessionStorage.getItem('userid') == null)
+            document.getElementById("register").style.display = "block";
     }
 }
 
@@ -399,11 +401,11 @@ function Register(){
         }
 
         if (usertype=="cli"){
-            var newuser = ({"ID":(userlist[0].Clienti.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"cli","pagamento":document.getElementById("pagamento"),"useragreement":document.getElementById("useragreement"),"acquisti":new Array(),"recensioni":new Array()});
+            var newuser = ({"ID":(userlist[0].Clienti.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"cli","pagamento":document.getElementById("pagamento").value,"useragreement":document.getElementById("useragreement").value,"acquisti":new Array(),"recensioni":new Array()});
             userlist[0].Clienti.splice(userlist[0].Clienti.length,0, newuser);
             localStorage.setItem("users", JSON.stringify(userlist));
             } else if (usertype == "vend") { 
-            var newuser = ({"ID":(userlist[0].Venditori.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"vend","pagamento":document.getElementById("pagamento"),"useragreement":document.getElementById("useragreement"),"attività":document.getElementById("attività").value,"partitaiva":document.getElementById("partitaiva"),"acquisti":new Array(),"recensioni":new Array()}); 
+            var newuser = ({"ID":(userlist[0].Venditori.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"vend","pagamento":document.getElementById("pagamento").value,"useragreement":document.getElementById("useragreement").value,"attività":document.getElementById("attività").value,"partitaiva":document.getElementById("partitaiva").value,"acquisti":new Array(),"recensioni":new Array()}); 
             userlist[0].Venditori.splice(users[0].Venditori.length,0, newuser);
             localStorage.setItem("users", JSON.stringify(userlist));
         }
@@ -513,6 +515,7 @@ function view(type) {
 
 // TODO: CHECK IF THIS WORKS FOR REAL
 function sendReview(){
+    var userlist = JSON.parse(localStorage.getItem("users"));
     var usertype = sessionStorage.getItem('usertype');
     var userid = sessionStorage.getItem('userid');
     var itemid = urlRetriever();
@@ -527,33 +530,41 @@ function sendReview(){
                 for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
                     if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid){
                         userlist[0].Clienti[userid].recensioni[i].review = document.getElementById("review").value;
+                        localStorage.setItem("users", JSON.stringify(userlist));
                     }
                 }
-            }
+            } else
+                return; // Abort review
         } else {
             for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
                 if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid){
                     userlist[0].Clienti[userid].recensioni[i].review = document.getElementById("review").value;
+                    localStorage.setItem("users", JSON.stringify(userlist));
                 }
             }
         } 
-    } else {
+    } else if (usertype == "vend") {
         if (isReviewed(usertype,itemid) == true){
             if (confirm("Hai già lasciato una recensione, vuoi modificarla?")){
                 for(var i=0;i<userlist[0].Venditori[userid].recensioni.length;i++){
                     if (userlist[0].Venditori[userid].recensioni[i].itemid == itemid){
                         userlist[0].Venditori[userid].recensioni[i].review = document.getElementById("review").value;
+                        localStorage.setItem("users", JSON.stringify(userlist));
                     }
                 }
-            }
+            } else
+                return; // Abort review
         } else {
             for(var i=0;i<userlist[0].Venditori[userid].recensioni.length;i++){
                 if (userlist[0].Venditori[userid].recensioni[i].itemid == itemid){
                     userlist[0].Venditori[userid].recensioni[i].review = document.getElementById("review").value;
+                    localStorage.setItem("users", JSON.stringify(userlist));
                 }
             }
         }
     }
+    // Reload product info to show new review
+    productinfo(urlRetriever()); 
 }
 
 // Use URLSearchParams to retrieve the queryID
@@ -566,6 +577,9 @@ function urlRetriever(){
 
 //Check if user has bought a certain item
 function isBought(usertype, itemid){
+    var userlist = JSON.parse(localStorage.getItem("users"));
+    var userid = sessionStorage.getItem('userid');
+    
     if (usertype == "cli"){
         for(var i=0;i<userlist[0].Clienti[userid].acquisti.length;i++){
             if (userlist[0].Clienti[userid].acquisti[i].itemid == itemid){
@@ -584,6 +598,9 @@ function isBought(usertype, itemid){
 
 //Check if user has reviewed a certain item
 function isReviewed(usertype, itemid){
+    var userlist = JSON.parse(localStorage.getItem("users"));
+    var userid = sessionStorage.getItem('userid');
+
     if (usertype == "cli"){
         for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
             if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid){
