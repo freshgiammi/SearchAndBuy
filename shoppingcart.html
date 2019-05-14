@@ -12,13 +12,17 @@
     <!-- Custom Resources -->
     <link rel="stylesheet" href="css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
-    <script type="text/javascript" src="products.json"></script> <!-- JSON Product List -->
     <script type="text/javascript" src="utilities.js"></script>
-    
+    <script type="text/javascript" src="products.json"></script>
+    <script type="text/javascript" src="users.json"></script>
+
+    <!-- Font Awesome for favicons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
     <title>Search&Buy, il più grande store d'Europa</title>
 </head>
 
-<body onload="productloader()">
+<body onload="cartLoader()">
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Search&Buy</a>
@@ -57,57 +61,63 @@
         </div>
     </nav>
 
-    <!-- ITEM PAGE -->
-    <div class="container"> <!-- Avoid resizing issues -->
-        <div class="row justify-content-md-center">
-            <div class="col-lg-7">
-
-            <!-- ITEM -->
-            <div class="card mt-4">
-            <img id="itemimg" class="card-img-top img-fluid" style="width: 600px; height:300px; object-fit:scale-down; "src="" alt="">
-                <div class="card-body">
-                    <h3 id="itemname" class="card-title">ITEM NAME</h3>
-                    <h4 id="itemprice">ITEM PRICE</h4>
-                    <p id="itemdesc" class="card-text">ITEM DESCRIPTION</p>
-                    <button class="btn btn-block btn-success" onclick="addToCart();">Aggiungi al carrello</button>
+    <br>
+    <h1 id="emptycart" style="text-align: center; margin-top: 50px; display: none;">Il carrello è vuoto! <a href="index.html">Torna alla homepage.</a></h1>
+    <div id="cart" class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col"> </th>
+                                <th scope="col">Prodotto</th>
+                                <th scope="col">Metodo di spedizione</th>
+                                <th scope="col" class="text-right">Prezzo</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody id="items">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Sub-Totale</td>
+                                <td id="subtotal" class="text-right"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Spese di spedizione</td>
+                                <td class="text-right">6.90 €</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><strong>Totale</strong></td>
+                                <td id="total" class="text-right"><strong></strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <!-- /.ITEM -->
-    
-            <!-- ITEMINFO -->
-            <div class="card card-outline-secondary my-4">
-                <div class="card-header">
-                    Informazioni sul prodotto
-                </div>
-                <div class="card-body">
-                <small id="itemseller" class="text-muted">ITEMSELLER</small>
-                <br>
-                <small id="itemleft" class="text-muted">ITEMLEFT</small>
-                <br>
-                <small id="itemshipment" class="text-muted">ITEMSHIPMENT</small>
-              </div>
-            </div>
-            <!-- /.ITEMINFO -->
-
-            <!-- ITEM REVIEWS -->
-            <div class="card card-outline-secondary my-4">
-                <div class="card-header">
-                    Product Reviews
-                </div>
-                <div id="reviews" class="card-body">
-                <textarea class="form-control" id="review" placeholder="Lascia una recensione!" required></textarea>
-                <br>
-                <a href="#" class="btn btn-success" onclick="sendReview()">Invia!</a>
+            <div class="col mb-2">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <button class="btn btn-block btn-light">Continua lo shopping</button>
+                    </div>
+                    <div class="col-sm-12 col-md-6 text-right">
+                        <button class="btn btn-lg btn-block btn-success text-uppercase" onclick="checkout();">Checkout</button>
+                    </div>
                 </div>
             </div>
-            <!-- /.ITEM REVIEWS -->
-
-          </div>
         </div>
     </div>
-      <!-- /.ITEMPAGE -->
     
     
+
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

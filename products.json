@@ -3,13 +3,13 @@ var prodotti=[
 	{
 	"Nome":"Macbook Pro 13"
 	,
-	"Prezzo":"€ 1200"
+	"Prezzo":"1200"
 	,
 	"Immagine":"img/macbook.jpg"
 	,
-	"Categoria":"Electronics"
+	"Categoria":"Laptop"
 	,
-	"Descrizione":"MacbookPro 13' Display retina, ottimo computer per studenti e per chi ha bisogno di un computer portatile maneggevole "
+	"Descrizione":"Con MacBook Pro, il notebook raggiunge livelli mai visti di potenza, leggerezza e praticità. Processori e memoria ad alte prestazioni, grafica evoluta, archiviazione superveloce e molto di più: hai tutto quel che serve per far volare le tue idee."
 	,
 	"ID":0
 	,
@@ -18,5 +18,44 @@ var prodotti=[
 	"Spedizione":"Posta"
 	,
 	"VendorID":0
+	},
+	{
+	"Nome":"OnePlus 6"
+	,
+	"Prezzo":"500"
+	,
+	"Immagine":"img/oneplus6.jpg"
+	,
+	"Categoria":"Smartphone"
+	,
+	"Descrizione":"OnePlus 6 è indubbiamente uno degli smartphone Android più avanzati e completi disponibili sul mercato, grazie alla ricca dotazione e all'elevata multimedialità. Dispone di un grande display da 6.28 pollici con una risoluzione di 2280x1080 pixel. Le funzionalità offerte da questo OnePlus 6 sono veramente tante e all'avanguardia. A cominciare dal modulo LTE 4G che permette un trasferimento dati e una navigazione in internet eccellente. "
+	,
+	"ID":1
+	,
+	"Quantita":5
+	,
+	"Spedizione":"Posta"
+	,
+	"VendorID":0
 	}
-      ]
+	,
+	{
+	"Nome":"Macbook Pro 13"
+	,
+	"Prezzo":"€ 1200"
+	,
+	"Immagine":"img/macbook.jpg"
+	,
+	"Categoria":"Laptop"
+	,
+	"Descrizione":"MacbookPro 13' Display retina, ottimo computer per studenti e per chi ha bisogno di un computer portatile maneggevole "
+	,
+	"ID":2
+	,
+	"Quantita":5
+	,
+	"Spedizione":"Posta"
+	,
+	"VendorID":0
+	}
+]

@@ -5,7 +5,7 @@ var users=[
 "Clienti":[
 
 	{
-    "ID":0
+    "ID":"0"
 	,
 	"nomecognome":"John Doe"
 	,
@@ -27,7 +27,7 @@ var users=[
 	,
 	"acquisti":[
 		{
-			"itemid":0
+			"itemid":"0"
 			,
 			"data":"2019-04-20"
 		}
@@ -35,7 +35,7 @@ var users=[
 	,
 	"recensioni":[
 		{
-			"itemid":0
+			"itemid":"0"
 			,
 			"review":"Fantastico prodotto!"
 			,
@@ -49,7 +49,7 @@ var users=[
 "Venditori":[
     
 	{
-    "ID":0
+    "ID":"0"
 	,
 	"nomecognome":"Mario Rossi"
 	,
@@ -75,7 +75,7 @@ var users=[
 	,
 	"acquisti":[
 		{
-			"itemid":0
+			"itemid":"0"
 			,
 			"data":"2019-04-28"
 		}
@@ -83,7 +83,7 @@ var users=[
 	,
 	"recensioni":[
 		{
-			"itemid":0
+			"itemid":"0"
 			,
 			"review":"Buono."
 			,

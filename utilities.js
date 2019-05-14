@@ -22,6 +22,8 @@ function Login(){
         if (userlist[0].Clienti[i].email == email &&userlist[0].Clienti[i].password == password){
             sessionStorage.setItem("userid",i);
             sessionStorage.setItem("usertype","cli");
+            var cart = [];
+            sessionStorage.setItem("cart", JSON.stringify(cart));
             console.log('Login Successful. Redirecting to homepage...');
             document.location.href="index.html";
         return false; //workaround: flush data to redirect user to index.html
@@ -32,6 +34,8 @@ function Login(){
         if (userlist[0].Venditori[i].email == email &&userlist[0].Venditori[i].password == password){
             sessionStorage.setItem("userid",i);
             sessionStorage.setItem("usertype","vend");
+            var cart = [];
+            sessionStorage.setItem("cart", JSON.stringify(cart));
             console.log('Login Successful. Redirecting to homepage...');
             document.location.href="index.html";
         return false; //workaround: flush data to redirect user to index.html
@@ -213,10 +217,10 @@ function productinfo(productid){
     var userlist = JSON.parse(localStorage.getItem("users"));
     document.getElementById("itemname").innerHTML = itemlist[productid].Nome;
     document.getElementById("itemdesc").innerHTML = itemlist[productid].Descrizione;
-    document.getElementById("itemprice").innerHTML =itemlist[productid].Prezzo;
-    document.getElementById("itemimg").src= itemlist[productid].Immagine;
+    document.getElementById("itemprice").innerHTML = "€ " +itemlist[productid].Prezzo;
+    document.getElementById("itemimg").src = itemlist[productid].Immagine;
     document.getElementById("itemleft").innerHTML = "Rimasti in magazzino: " +itemlist[productid].Quantita;
-    document.getElementById("itemshipment").innerHTML = "Metodo di spedizione: " +itemlist[productid].VendorID;
+    document.getElementById("itemshipment").innerHTML = "Metodo di spedizione: " +itemlist[productid].Spedizione;
     var itemseller = itemlist[productid].VendorID;
     for(var i=0;i<userlist[0].Venditori.length;i++){
         if (userlist[0].Venditori[i].ID == itemseller){
@@ -247,7 +251,7 @@ function productinfo(productid){
         list.insertBefore(newpara, list.childNodes[0]);
 
     }
-    document.title = "Search&Buy - " +itemname;
+    document.title = "Search&Buy - " +itemlist[productid].Nome;;
     console.log("Product info dynamically loaded.");
 }
 
@@ -280,6 +284,7 @@ function profilepage(){
     userinfo();
 }
 
+//Change user info based on form provided in profile.html
 function changeuserinfo(){
     var userid = sessionStorage.getItem('userid');
     var usertype = sessionStorage.getItem('usertype');
@@ -513,23 +518,38 @@ function view(type) {
     }
 }
 
-// TODO: CHECK IF THIS WORKS FOR REAL
+//Send a review for a item; allow user to modify review, block reviews from people who have not bought the item
 function sendReview(){
     var userlist = JSON.parse(localStorage.getItem("users"));
     var usertype = sessionStorage.getItem('usertype');
     var userid = sessionStorage.getItem('userid');
     var itemid = urlRetriever();
+    
+    //Check if user is logged in before creating a review
+    if (userid == null){
+        alert("Devi loggarti prima di poter scrivere una recensione!");
+        document.location.href="login.html";
 
+    }
+
+    //Check if user has bought the item
     if (isBought(usertype,itemid) == false){
         return alert("Non hai ancora acquistato questo articolo!");
     }
 
+    //Check that the user has written something
+    if (document.getElementById("review").value == null) {
+        return alert("Scrivi qualcosa prima di inviare!");
+    }
+
     if (usertype == "cli"){
         if (isReviewed(usertype,itemid) == true){
+            //If user has already reviewed the item, let him know
             if (confirm("Hai già lasciato una recensione, vuoi modificarla?")){
                 for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
                     if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid){
                         userlist[0].Clienti[userid].recensioni[i].review = document.getElementById("review").value;
+                        userlist[0].Clienti[userid].recensioni[i].data = dateBuilder();
                         localStorage.setItem("users", JSON.stringify(userlist));
                     }
                 }
@@ -539,16 +559,19 @@ function sendReview(){
             for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
                 if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid){
                     userlist[0].Clienti[userid].recensioni[i].review = document.getElementById("review").value;
+                    userlist[0].Clienti[userid].recensioni[i].data = dateBuilder();
                     localStorage.setItem("users", JSON.stringify(userlist));
                 }
             }
         } 
     } else if (usertype == "vend") {
         if (isReviewed(usertype,itemid) == true){
+            //If user has already reviewed the item, let him know
             if (confirm("Hai già lasciato una recensione, vuoi modificarla?")){
                 for(var i=0;i<userlist[0].Venditori[userid].recensioni.length;i++){
                     if (userlist[0].Venditori[userid].recensioni[i].itemid == itemid){
                         userlist[0].Venditori[userid].recensioni[i].review = document.getElementById("review").value;
+                        userlist[0].Venditori[userid].recensioni[i].data = dateBuilder();
                         localStorage.setItem("users", JSON.stringify(userlist));
                     }
                 }
@@ -558,13 +581,14 @@ function sendReview(){
             for(var i=0;i<userlist[0].Venditori[userid].recensioni.length;i++){
                 if (userlist[0].Venditori[userid].recensioni[i].itemid == itemid){
                     userlist[0].Venditori[userid].recensioni[i].review = document.getElementById("review").value;
+                    userlist[0].Venditori[userid].recensioni[i].data = dateBuilder();
                     localStorage.setItem("users", JSON.stringify(userlist));
                 }
             }
         }
     }
     // Reload product info to show new review
-    productinfo(urlRetriever()); 
+    location.reload();
 }
 
 // Use URLSearchParams to retrieve the queryID
@@ -615,4 +639,150 @@ function isReviewed(usertype, itemid){
         }
     }
     return false;
+}
+
+//Check if item is inside cart; if not, inserts it
+function addToCart(){
+    var itemlist = JSON.parse(localStorage.getItem("itemlist"));
+    var productid = urlRetriever();
+    var cart = JSON.parse(sessionStorage.getItem("cart"));
+
+    for (i=0;i<cart.length;i++){
+        if (cart[i] == productid){
+            console.log("Item already present in cart");
+            return alert("Il prodotto è già nel carrello!")
+        }
+    }
+
+    cart.push(productid);
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+    alert("Oggetto aggiunto al carrello!");
+
+}
+
+//Create table with cart elements
+function cartItems(){
+    var itemlist = JSON.parse(localStorage.getItem("itemlist"));
+    var cart = JSON.parse(sessionStorage.getItem("cart"));
+    if (cart[0] == null){
+        document.getElementById("cart").style.display = "none";
+        document.getElementById("emptycart").style.display = "block";
+        //Display something and tell the user the cart is empty
+        return;
+    }
+
+    var subtotal = Number(0);
+
+    for (i=0;i<cart.length;i++){
+        var itemid = cart[i];
+        var list = document.getElementById("items"); //tbody
+        var row = document.createElement("tr");
+
+        // Generate itemimg
+        var itemimg = document.createElement("td");
+        var img = document.createElement("img");
+        img.src = itemlist[itemid].Immagine;
+        img.style.objectFit = "scale-down";
+        img.style.height = "30px";
+        img.style.width = "30px";
+        itemimg.appendChild(img);
+        row.appendChild(itemimg);
+
+        // Generate itemname
+        var itemname = document.createElement("td");
+        itemname.appendChild(document.createTextNode(itemlist[itemid].Nome));
+        row.appendChild(itemname);
+
+        // Generate itemshipment
+        var itemshipment = document.createElement("td");
+        itemshipment.appendChild(document.createTextNode(itemlist[itemid].Spedizione));
+        row.appendChild(itemshipment);
+
+        // Generate itemprice
+        var itemprice = document.createElement("td");
+        itemprice.className += "text-right";
+        itemprice.appendChild(document.createTextNode(itemlist[itemid].Prezzo +" €"));
+        row.appendChild(itemprice);
+
+        // Generate itemremove
+        var itemremove = document.createElement("td");
+        var button = document.createElement("button");
+        var trash = document.createElement("i");
+        button.className += "btn btn-sm btn-danger";
+        itemremove.className += "text-right";
+        trash.className += "fa fa-trash";
+        button.appendChild(trash);
+        itemremove.appendChild(button);
+        itemremove.onclick = function() { cartRemover(itemid); };
+        row.appendChild(itemremove);
+
+        list.insertBefore(row, list.childNodes[0]);
+
+        subtotal += Number(itemlist[itemid].Prezzo);
+    }
+    document.getElementById("subtotal").appendChild(document.createTextNode(subtotal +" €"));
+    var total = (subtotal + Number(6.90)).toFixed(2);
+    document.getElementById("total").appendChild(document.createTextNode(total +" €"));
+}
+
+//Load cart to avoid race condition
+function cartLoader(){
+    cartItems();
+    navbarhider();
+}
+
+//Remove item from cart
+function cartRemover(productid){
+    var cart = JSON.parse(sessionStorage.getItem("cart"));
+
+    for (i=0;i<cart.length;i++){
+        if (cart[i] == productid){
+            cart.splice(i,1);
+        }
+    }
+
+    console.log(cart);
+
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+    alert("Oggetto rimosso dal carrello!")
+    location.reload();
+}
+
+//Checkout, add items to acquisti and decrement stock by 1
+function checkout(){
+    var userlist = JSON.parse(localStorage.getItem("users"));
+    var usertype = sessionStorage.getItem("usertype");
+    var userid = sessionStorage.getItem("userid");
+    var cart = JSON.parse(sessionStorage.getItem("cart"));
+    
+    for (i=0;i<cart.length;i++){
+        var item = ({"itemid":cart[i],"data":dateBuilder()});
+        if (usertype = "cli"){
+            userlist[0].Clienti[userid].acquisti.splice(0,0,item);
+        } else if (usertype = "vend"){
+            userlist[0].Venditori[userid].acquisti.splice(0,0,item);
+        }
+    }
+    localStorage.setItem("users", JSON.stringify(userlist));
+
+    console.log("Checkout done, recreating empty cart");
+    sessionStorage.removeItem("cart");
+    cart = [];
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+    
+    alert("Checkout completato! Sarai reindirizzato alla home page...");
+    document.location.href="index.html";
+
+}
+
+//Generate a date in YYYY-MM-DD format
+function dateBuilder(){
+    var x = new Date();
+    var y = x.getFullYear().toString();
+    var m = (x.getMonth() + 1).toString();
+    var d = x.getDate().toString();
+    (d.length == 1) && (d = '0' + d);
+    (m.length == 1) && (m = '0' + m);
+    var date = y +"-" +m +"-" +d;
+    return date;
 }
