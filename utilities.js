@@ -319,20 +319,35 @@ function indexloader(){
         localStorage.setItem("users", JSON.stringify(users));
         console.log("userlist succesfully loaded.");
   } 
-  
+   //TODO: Rewrite in JavaScript
     /* Enable transparent navbar on scroll */
     $(window).scroll(function() {
         if ($(window).scrollTop() >= 1) {
             $(".navbar").css('background', '#f8f9fa'); //bg-light
             $(".navbar").addClass("navbar-light");
             $(".navbar").removeClass("navbar-dark");
+            $("#searchbutton").addClass("btn-outline-dark");
+            $("#searchbutton").removeClass("btn-outline-light");
         } else {
             $(".navbar").css('background', 'transparent');
             $(".navbar").removeClass("navbar-light");
             $(".navbar").addClass("navbar-dark");
+            $("#searchbutton").addClass("btn-outline-light");
+            $("#searchbutton").removeClass("btn-outline-dark");
         }
     });
 
+    /* Avoid transparency issues on mobile */
+    // Array looks like [navbar fixed-top navbar-expand-lg navbar-dark]
+    $('button.navbar-toggler').on('click', function() {
+        if ($($(".navbar").attr("class").split(' ')[3] == "navbar-dark")){
+            $(".navbar").css('background', '#f8f9fa'); //bg-light
+            $(".navbar").addClass("navbar-light");
+            $(".navbar").removeClass("navbar-dark");
+            $("#searchbutton").addClass("btn-outline-dark");
+            $("#searchbutton").removeClass("btn-outline-light");
+        }
+    });
 }
 
 // Run this on profile.html to avoin onload race conditions. TODO: Find a fix
