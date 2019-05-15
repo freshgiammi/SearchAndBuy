@@ -26,7 +26,7 @@ var prodotti=[
 	,
 	"Immagine":"img/oneplus6.jpg"
 	,
-	"Categoria":"Smartphone"
+	"Categoria":"Smartphones"
 	,
 	"Descrizione":"OnePlus 6 è indubbiamente uno degli smartphone Android più avanzati e completi disponibili sul mercato, grazie alla ricca dotazione e all'elevata multimedialità. Dispone di un grande display da 6.28 pollici con una risoluzione di 2280x1080 pixel. Le funzionalità offerte da questo OnePlus 6 sono veramente tante e all'avanguardia. A cominciare dal modulo LTE 4G che permette un trasferimento dati e una navigazione in internet eccellente. "
 	,
@@ -34,27 +34,67 @@ var prodotti=[
 	,
 	"Quantita":5
 	,
-	"Spedizione":"Posta"
+	"Spedizione":"Posta prioritaria"
 	,
 	"VendorID":0
 	}
 	,
 	{
-	"Nome":"Macbook Pro 13"
+	"Nome":"iPhone X"
 	,
-	"Prezzo":"€ 1200"
+	"Prezzo":"1000"
 	,
-	"Immagine":"img/macbook.jpg"
+	"Immagine":"img/iphone.png"
 	,
-	"Categoria":"Laptop"
+	"Categoria":"Smartphones"
 	,
-	"Descrizione":"MacbookPro 13' Display retina, ottimo computer per studenti e per chi ha bisogno di un computer portatile maneggevole "
+	"Descrizione":"Apple iPhone X è uno degli smartphone iOS più avanzati e completi che ci siano in circolazione. Dispone di un grande display da 5.8 pollici con una risoluzione di 2436x1125 pixel. Le funzionalità offerte da questo Apple iPhone X sono veramente tante e all'avanguardia. A cominciare dal modulo LTE 4G che permette un trasferimento dati e una navigazione in internet eccellente. Fotocamera da 12 megapixel ma che permette ugualmente al Apple iPhone X di scattare foto di buona qualità con una risoluzione di 4608x2592 pixel e di registrare video in 4K alla risoluzione di 3840x2160 pixel. Lo spessore di 7.7mm è veramente contenuto e rende questo Apple iPhone X ancora più spettacolare. "
 	,
 	"ID":2
 	,
-	"Quantita":5
+	"Quantita":3
 	,
-	"Spedizione":"Posta"
+	"Spedizione":"Posta prioritaria"
+	,
+	"VendorID":0
+	}
+	,
+	{
+	"Nome":"TCL 40ES561"
+	,
+	"Prezzo":"280"
+	,
+	"Immagine":"img/tcl40ES561.jpg"
+	,
+	"Categoria":"TV"
+	,
+	"Descrizione":"Il televisore da 40 pollici della serie 40ES561 di tcl è la perfetta integrazione per la tua camera da letto o per la casa vacanza. Goditi le immagini in qualità hd, il dolby digital plus sound, il triple tuner e le ulteriori funzionalità come il chromecast integrato. Goditi le ulteriori funzionalità della Smart TV come l'Android TV con Netflix e YouTube App; grazie al Chromecast integrato, comandi la TV da 40 pollici stando comodamente sul divano"
+	,
+	"ID":3
+	,
+	"Quantita":10
+	,
+	"Spedizione":"Spedito con DHL"
+	,
+	"VendorID":0
+	}
+	,
+	{
+	"Nome":"Xiaomi Notebook PRO"
+	,
+	"Prezzo":"880"
+	,
+	"Immagine":"img/xiaominotebook.png"
+	,
+	"Categoria":"Laptop"
+	,
+	"Descrizione":"Notebook che supporta il riconoscimento delle impronte digitali. Dotato di un display FHD da 15,6 pollici, dà vita alle tue foto e ai tuoi video. Basato su processore Intel Core, con grafica NVIDIA GeForce MX150, garantisce prestazioni elevate. L'enorme capacità di archiviazione su disco rigido da 256 GB ti offre un'esperienza di utilizzo senza intoppi. Il Wi-Fi Dual Band 2.4GHz / 5.0GHz supportato, garantisce una navigazione ad alta velocità."
+	,
+	"ID":4
+	,
+	"Quantita":2
+	,
+	"Spedizione":"Importato da Cina (Fast Shipping)"
 	,
 	"VendorID":0
 	}
