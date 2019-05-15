@@ -66,50 +66,72 @@ function userinfo(){
             document.getElementById("pagamento").value = userlist[0].Clienti[userid].pagamento;
             document.getElementById("password").value = userlist[0].Clienti[userid].password;
             // LOAD USER ORDERS
-            for(var i=0;i<userlist[0].Clienti[userid].acquisti.length;i++){
+            for (i=0;i<userlist[0].Clienti[userid].acquisti.length;i++){ //TODO: Is a for-each better?
                 var itemid = userlist[0].Clienti[userid].acquisti[i].itemid;
-                var data = userlist[0].Clienti[userid].acquisti[i].data;
-                for (i=0;i<userlist[0].Clienti[userid].acquisti.length;i++){ //TODO: Is a for-each better?
-                    var itemid = userlist[0].Clienti[userid].acquisti[i].itemid;
-                    var list = document.getElementById("orderlist");
-            
-                    //Generate divider
-                    var newhr = document.createElement("hr");
-                    list.insertBefore(newhr, list.childNodes[0]);
-            
-                    // Generate reviewer
-                    var newid = document.createElement("small");
-                    newid.className += "text-muted";
-                    newid.appendChild(document.createTextNode("Ordine effettuato in data: " +userlist[0].Clienti[userid].acquisti[i].data));
-                    list.insertBefore(newid, list.childNodes[0]);
-            
-                    //Generate review
-                    var newpara = document.createElement("p");
-                    var review = newpara.appendChild(document.createTextNode(itemlist[itemid].Nome));
-                    newpara.appendChild(review);
-                    list.insertBefore(newpara, list.childNodes[0]);
+                var list = document.getElementById("orderlist");
+        
+                //Generate review
+                var newpara = document.createElement("p");
+                var review = newpara.appendChild(document.createTextNode(itemlist[itemid].Nome));
+                newpara.appendChild(review);
+                list.appendChild(newpara);
+
+                // Generate reviewer
+                var newid = document.createElement("p");
+                newid.className += "text-muted";
+                newid.style.fontSize += "12px";
+                newid.appendChild(document.createTextNode("Ordine effettuato in data: " +userlist[0].Clienti[userid].acquisti[i].data));
+                list.appendChild(newid);
+
+                //Generate cancel order button
+                if (userlist[0].Clienti[userid].acquisti[i].data == dateBuilder()){
+                    var button = document.createElement("button");
+                    button.className += "btn btn-danger btn-sm";
+                    button.appendChild(document.createTextNode("Annulla ordine"));
+
+                    /**  
+                    *    Javascript doesn't use block scope. For this reason, the variable i is visible to the function
+                    *    at execution time. This means that every time, the function will be called with the last iterated value of i. 
+                    *    Work around this by using closure, creating a private variable preserved by each callback value.
+                    *    https://stackoverflow.com/questions/6048561/setting-onclick-to-use-current-value-of-variable-in-loop 
+                    */
+                    var index = i;
+                    button.onclick = (function(itemid, index) { //TODO: FIX THIS
+                        return function(){
+                            cancelOrder(itemid, index);
+                        }
+                    })(itemid, index);
+
+                    list.appendChild(button);
+
                 }
+
+                //Generate divider
+                var newhr = document.createElement("hr");
+                list.appendChild(newhr);
+                
             }
             // LOAD USER REVIEWS
             for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
                 var itemid = userlist[0].Clienti[userid].recensioni[i].itemid;
                 var list = document.getElementById("reviewlist");
-            
-                //Generate divider
-                var newhr = document.createElement("hr");
-                list.insertBefore(newhr, list.childNodes[0]);
-        
-                // Generate reviewer
-                var newid = document.createElement("small");
-                newid.className += "text-muted";
-                newid.appendChild(document.createTextNode("Hai recensito: "+itemlist[itemid].Nome +" in data " +userlist[0].Clienti[userid].recensioni[i].data));
-                list.insertBefore(newid, list.childNodes[0]);
         
                 //Generate review
                 var newpara = document.createElement("p");
                 var review = newpara.appendChild(document.createTextNode(userlist[0].Clienti[userid].recensioni[i].review));
                 newpara.appendChild(review);
-                list.insertBefore(newpara, list.childNodes[0]);
+                list.appendChild(newpara);
+
+                // Generate reviewer
+                var newid = document.createElement("small");
+                newid.className += "text-muted";
+                newid.appendChild(document.createTextNode("Hai recensito: "+itemlist[itemid].Nome +" in data " +userlist[0].Clienti[userid].recensioni[i].data));
+                list.appendChild(newid);
+
+                //Generate divider
+                var newhr = document.createElement("hr");
+                list.appendChild(newhr);
+
             }
         
         } else { 
@@ -126,52 +148,69 @@ function userinfo(){
             document.getElementById("partitaiva").value = userlist[0].Venditori[userid].partitaiva;
             document.getElementById("attività").value = userlist[0].Venditori[userid].attività;
             // LOAD USER ORDERS
-            for(var i=0;i<userlist[0].Venditori[userid].acquisti.length;i++){
+            for (i=0;i<userlist[0].Venditori[userid].acquisti.length;i++){ //TODO: Is a for-each better?
                 var itemid = userlist[0].Venditori[userid].acquisti[i].itemid;
-                var data = userlist[0].Venditori[userid].acquisti[i].data;
-                for (i=0;i<userlist[0].Venditori[userid].acquisti.length;i++){ //TODO: Is a for-each better?
-                    var itemid = userlist[0].Venditori[userid].acquisti[i].itemid;
-                    var list = document.getElementById("orderlist");
-            
-                    //Generate divider
-                    var newhr = document.createElement("hr");
-                    list.insertBefore(newhr, list.childNodes[0]);
-            
-                    // Generate reviewer
-                    var newid = document.createElement("small");
-                    newid.className += "text-muted";
-                    newid.appendChild(document.createTextNode("Ordine effettuato in data: " +userlist[0].Venditori[userid].acquisti[i].data));
-                    list.insertBefore(newid, list.childNodes[0]);
-            
-                    //Generate review
-                    var newpara = document.createElement("p");
-                    var review = newpara.appendChild(document.createTextNode("Hai acquistato: " +itemlist[itemid].Nome));
-                    newpara.appendChild(review);
-                    list.insertBefore(newpara, list.childNodes[0]);
+                var list = document.getElementById("orderlist");
+        
+                //Generate review
+                var newpara = document.createElement("p");
+                var review = newpara.appendChild(document.createTextNode(itemlist[itemid].Nome));
+                newpara.appendChild(review);
+                list.appendChild(newpara);
+
+                // Generate reviewer
+                var newid = document.createElement("p");
+                newid.className += "text-muted";
+                newid.style.fontSize += "12px";
+                newid.appendChild(document.createTextNode("Ordine effettuato in data: " +userlist[0].Clienti[userid].acquisti[i].data));
+                list.appendChild(newid);
+
+                //Generate cancel order button
+                if (userlist[0].Venditori[userid].acquisti[i].data == dateBuilder()){
+                    var button = document.createElement("button");
+                    button.className += "btn btn-danger btn-sm";
+                    button.appendChild(document.createTextNode("Annulla ordine"));
+                    
+                    /**  
+                    *    Javascript doesn't use block scope. For this reason, the variable i is visible to the function
+                    *    at execution time. This means that every time, the function will be called with the last iterated value of i. 
+                    *    Work around this by using closure, creating a private variable preserved by each callback value.
+                    *    https://stackoverflow.com/questions/6048561/setting-onclick-to-use-current-value-of-variable-in-loop 
+                    */
+                    var index = i;
+                    button.onclick = (function(itemid, index) { //TODO: FIX THIS
+                        return function(){
+                            cancelOrder(itemid, index);
+                        }
+                    })(itemid, index);
+                    
+                    list.appendChild(button);
                 }
+
+                //Generate divider
+                var newhr = document.createElement("hr");
+                list.appendChild(newhr);
             }
             // LOAD USER REVIEWS
             for(var i=0;i<userlist[0].Venditori[userid].recensioni.length;i++){
                 var itemid = userlist[0].Venditori[userid].recensioni[i].itemid;
-                var data = userlist[0].Venditori[userid].recensioni[i].data;
-                var recensione = userlist[0].Venditori[userid].recensioni[i].review;
                 var list = document.getElementById("reviewlist");
             
-                //Generate divider
-                var newhr = document.createElement("hr");
-                list.insertBefore(newhr, list.childNodes[0]);
-        
+                //Generate review
+                var newpara = document.createElement("p");
+                var review = newpara.appendChild(document.createTextNode(userlist[0].Venditori[userid].recensioni[i].review));
+                newpara.appendChild(review);
+                list.appendChild(newpara);
+
                 // Generate reviewer
                 var newid = document.createElement("small");
                 newid.className += "text-muted";
-                newid.appendChild(document.createTextNode("Hai recensito: "+itemlist[itemid].Nome +" in data " +userlist[0].Venditori[userid].acquisti[i].data));
-                list.insertBefore(newid, list.childNodes[0]);
-        
-                //Generate review
-                var newpara = document.createElement("p");
-                var review = newpara.appendChild(document.createTextNode(itemlist[itemid].review));
-                newpara.appendChild(review);
-                list.insertBefore(newpara, list.childNodes[0]);
+                newid.appendChild(document.createTextNode("Hai recensito: "+itemlist[itemid].Nome +" in data " +userlist[0].Venditori[userid].recensioni[i].data));
+                list.appendChild(newid);
+
+                //Generate divider
+                var newhr = document.createElement("hr");
+                list.appendChild(newhr);
             }
         }
 
@@ -228,6 +267,10 @@ function productinfo(productid){
             document.getElementById("itemseller").innerHTML= "Venduto da: " +itemseller;
             }
     }
+
+    if (itemlist[productid].Quantita == 0)
+    document.getElementById("cartbutton").style.display = "none";
+    
     // Build an array of reviews, sorted by date
     var reviews = reviewbuilder(productid);
     
@@ -251,7 +294,8 @@ function productinfo(productid){
         list.insertBefore(newpara, list.childNodes[0]);
 
     }
-    document.title = "Search&Buy - " +itemlist[productid].Nome;;
+    document.title = "Search&Buy - " +itemlist[productid].Nome;
+
     console.log("Product info dynamically loaded.");
 }
 
@@ -265,7 +309,7 @@ function productloader(){
 function indexloader(){
     navbarhider();
     if(localStorage.getItem("itemlist")==null){
-        //If itemlist is already present, don't override it
+        //If itemlist is already present don't override it, otherwise we may not have the real amount of items left
         localStorage.setItem("itemlist", JSON.stringify(prodotti));
         console.log("itemlist succesfully loaded.");
     }
@@ -643,9 +687,12 @@ function isReviewed(usertype, itemid){
 
 //Check if item is inside cart; if not, inserts it
 function addToCart(){
-    var itemlist = JSON.parse(localStorage.getItem("itemlist"));
     var productid = urlRetriever();
     var cart = JSON.parse(sessionStorage.getItem("cart"));
+
+    if(sessionStorage.getItem("userid") == null){
+        return alert("Devi essere loggato per aggiungere l'articolo al carrello!");
+    }
 
     for (i=0;i<cart.length;i++){
         if (cart[i] == productid){
@@ -751,7 +798,8 @@ function cartRemover(productid){
 //Checkout, add items to acquisti and decrement stock by 1
 function checkout(){
     var userlist = JSON.parse(localStorage.getItem("users"));
-    var usertype = sessionStorage.getItem("usertype");
+    var usertype = sessionStorage.getItem("usertype"); //IDE: Actually used
+    var itemlist = JSON.parse(localStorage.getItem("itemlist"));
     var userid = sessionStorage.getItem("userid");
     var cart = JSON.parse(sessionStorage.getItem("cart"));
     
@@ -762,8 +810,10 @@ function checkout(){
         } else if (usertype = "vend"){
             userlist[0].Venditori[userid].acquisti.splice(0,0,item);
         }
+        itemlist[cart[i]].Quantita = Number(itemlist[cart[i]].Quantita)-1; 
     }
     localStorage.setItem("users", JSON.stringify(userlist));
+    localStorage.setItem("itemlist", JSON.stringify(itemlist));
 
     console.log("Checkout done, recreating empty cart");
     sessionStorage.removeItem("cart");
@@ -785,4 +835,22 @@ function dateBuilder(){
     (m.length == 1) && (m = '0' + m);
     var date = y +"-" +m +"-" +d;
     return date;
+}
+
+function cancelOrder(itemid, index){
+    var itemlist = JSON.parse(localStorage.getItem("itemlist"));
+    var userlist = JSON.parse(localStorage.getItem("users"));
+
+    if (confirm("Sei sicuro di voler annullare questo ordine?")){
+        itemlist[itemid].Quantita = Number(itemlist[itemid].Quantita)+1;
+        userlist[0].Clienti[userid].acquisti.splice(index,1);
+        localStorage.setItem("users", JSON.stringify(userlist));
+        localStorage.setItem("itemlist", JSON.stringify(itemlist));
+        location.reload();
+    }
+}
+
+//TODO: Delete before final build
+function debug(){
+    console.log("here");
 }
