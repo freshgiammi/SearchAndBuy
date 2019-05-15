@@ -3,27 +3,19 @@ html {
     font-family: 'Quicksand', sans-serif;
     font-weight: 400;
     height: 100%;
-    padding-top: 28px;
+    padding-top:30px;
+    background-color: #f8f9fa;
 }
 
-#login {
+/* Client/Vendor module*/
+#login,
+#profile,
+#shoppingcart,
+#client,
+#vendor,
+.vendorinfo{
     display: none;
 }
-
-#profile {
-    display: none;
-}
-
-#shoppingcart {
-    display: none;
-}
-
-
-/* In case we want to change the navbar color, remember to remove bg-light
-.navbar {
-    background-color: #584E5C;
-}
-*/
 
 h1,
 h2,
@@ -34,64 +26,31 @@ h6 {
     font-weight: 300;
 }
 
-
-/*Set carousel height*/
-
-.carousel-inner>.carousel-item {
-    height: 400px;
-    /*TODO: 350px seems better; find the right height.*/
+/* Used on  */
+#home-nav {
+    background: transparent;
+    background-color: transparent;
+    border-color: transparent;
+    transition: background-color 0.5s ease;
 }
 
-
-/*Make carousel image responsive to viewport size for mobile*/
-
-@media (max-width: 480px) {
-    #carouselone {
-        background-image: url("../img/macbook_small.png");
-        background-position: center center;
-        background-size: cover;
-    }
-    #carouseltwo {
-        background-image: url(https://source.unsplash.com/category/architecture/);
-    }
-    #carouselthree {
-        background-image: url(https://source.unsplash.com/category/architecture/);
+/* Adapt offer size based on vw width for mobile */
+@media (max-width: 480px){
+    #offer{
+        background: url(../img/offer.png) no-repeat;
+        height: 250px;
+        background-size: 100%;
     }
 }
-
-@media (min-width: 481px) {
-    #carouselone {
-        background-image: url("../img/macbook_big.png");
-        background-position: center center;
-        background-size: cover;
-    }
-    #carouseltwo {
-        background-image: url("../img/macbook_big.png");
-        background-position: center center;
-        background-size: cover;
-    }
-    #carouselthree {
-        background-image: url("../img/macbook_big.png");
-        background-position: center center;
-        background-size: cover;
+@media (min-width: 481px){
+    #offer{
+        background: url(../img/offer.png) no-repeat;
+        height: 100%;
+        background-size: 100%;
     }
 }
 
-
-/* Client/Vendor module*/
-
-#client {
-    display: none;
-}
-
-#vendor {
-    display: none;
-}
-
-.vendorinfo{
-    display: none;
-}
-
+/* Register.html form*/
 .custom-select {
     text-align: center;
     /* Firefox requires this */

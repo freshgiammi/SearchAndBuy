@@ -1,5 +1,5 @@
 body {
-  background: #F1F3FA;
+  background-color: #f8f9fa;
 }
 
 /* Profile container */
@@ -10,7 +10,7 @@ body {
 /* Profile sidebar */
 .profile-sidebar {
   padding: 20px 0 10px 0;
-  background: #fff;
+  background-color: #f8f9fa;
 }
 
 .profile-userinfo {
@@ -76,7 +76,7 @@ body {
 /* Profile Content */
 .profile-content {
   padding: 20px;
-  background: #fff;
+  background-color: #f8f9fa;
   min-height: 460px;
 }
 

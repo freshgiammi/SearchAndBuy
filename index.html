@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="IT">
 
-<head>
+<head> 
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,11 +17,25 @@
     <script type="text/javascript" src="users.json"></script>
 
     <title>Search&Buy, il più grande store d'Europa</title>
+    
+    <!-- Needed to keep padding correct on other pages -->
+    <style>
+        body,
+        html {
+            padding-top:0px;
+        }
+    
+    </style>
 </head>
 
 <body onload="indexloader()">
+
+    <!-- Offer --> 
+    <!-- TODO: Is height okay? --> 
+    <header id="offer"></header>
+
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <nav id="home-nav" class="navbar fixed-top navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">Search&Buy</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -38,10 +52,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorie</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Laptop</a>
+                        <a class="dropdown-item" href="#">Smartphones</a>
+                        <a class="dropdown-item" href="#">TV</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <!-- TODO: EASTER EGG-->
+                        <a class="dropdown-item" href="#">Tenta la fortuna, prodotto a caso?</a>
                     </div>
                 </li>
                 <a id="login" class="nav-link" href="login.html">Login</a>
@@ -57,31 +73,6 @@
             </form>
         </div>
     </nav>
-
-    <!-- Carousel -->
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" data-interval="1000">
-            <div class="carousel-item active" id="carouselone" style="cursor: pointer;" onclick="window.location='http://google.com';">
-            </div>
-            <div class="carousel-item" id="carouseltwo" style="cursor: pointer;" onclick="window.location='http://google.com';">
-            </div>
-            <div class="carousel-item" id="carouselthree" style="cursor: pointer;" onclick="window.location='http://google.com';">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
 
     <a href='itempage.html?itemid=0'>a link</a>
 

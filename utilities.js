@@ -319,6 +319,19 @@ function indexloader(){
         localStorage.setItem("users", JSON.stringify(users));
         console.log("userlist succesfully loaded.");
   } 
+  
+    /* Enable transparent navbar on scroll */
+    $(window).scroll(function() {
+        if ($(window).scrollTop() >= 1) {
+            $(".navbar").css('background', '#f8f9fa'); //bg-light
+            $(".navbar").addClass("navbar-light");
+            $(".navbar").removeClass("navbar-dark");
+        } else {
+            $(".navbar").css('background', 'transparent');
+            $(".navbar").removeClass("navbar-light");
+            $(".navbar").addClass("navbar-dark");
+        }
+    });
 
 }
 
@@ -848,6 +861,10 @@ function cancelOrder(itemid, index){
         localStorage.setItem("itemlist", JSON.stringify(itemlist));
         location.reload();
     }
+}
+
+function generateCategory(category){
+    
 }
 
 //TODO: Delete before final build
