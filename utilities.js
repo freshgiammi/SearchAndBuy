@@ -254,6 +254,9 @@ function deleteaccount(){
 function productinfo(productid){
     var itemlist = JSON.parse(localStorage.getItem("itemlist"));
     var userlist = JSON.parse(localStorage.getItem("users"));
+
+    document.getElementById("itemcat").href = "results.html?category=" +itemlist[productid].Categoria.toLowerCase();
+    document.getElementById("itemcat").innerText = itemlist[productid].Categoria;
     document.getElementById("itemname").innerHTML = itemlist[productid].Nome;
     document.getElementById("itemdesc").innerHTML = itemlist[productid].Descrizione;
     document.getElementById("itemprice").innerHTML = "€ " +itemlist[productid].Prezzo;
@@ -319,6 +322,7 @@ function indexloader(){
         localStorage.setItem("users", JSON.stringify(users));
         console.log("userlist succesfully loaded.");
   } 
+  
    //TODO: Rewrite in JavaScript
     /* Enable transparent navbar on scroll */
     $(window).scroll(function() {
@@ -348,6 +352,19 @@ function indexloader(){
             $("#searchbutton").removeClass("btn-outline-light");
         }
     });
+
+    //Pick 6 random items from the itemlist and show them on the homepage
+    var itemlist = JSON.parse(localStorage.getItem("itemlist"));
+    var itemarray = [];
+    for (var i = 0; i < itemlist.length; i++) {
+        itemarray.push(i);
+    }
+    for(i=0;i<6;i++){
+        var itemid=itemarray[Math.floor(Math.random()*itemarray.length)];
+        generateItemCard(itemid);
+        itemarray.splice((itemarray.indexOf(itemid)),1);
+        
+    }
 }
 
 // Run this on profile.html to avoin onload race conditions. TODO: Find a fix
@@ -865,6 +882,7 @@ function dateBuilder(){
     return date;
 }
 
+//Cancel order if it's not older than 1 day
 function cancelOrder(itemid, index){
     var itemlist = JSON.parse(localStorage.getItem("itemlist"));
     var userlist = JSON.parse(localStorage.getItem("users"));
@@ -878,8 +896,81 @@ function cancelOrder(itemid, index){
     }
 }
 
-function generateCategory(category){
+function categoryloader(){
+    navbarhider();
+    generateCategory();
+}
+
+//Displays items for a given category
+function generateCategory(){
+   
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    console.log("Acquired category with value: " +category);
+
+    document.getElementById("category").innerText = "Stai guardando la categoria: " +category.charAt(0).toUpperCase() + category.slice(1);
+    var itemlist = JSON.parse(localStorage.getItem("itemlist"));
+    for (i=0;i<itemlist.length;i++){
+        if (itemlist[i].Categoria.toLowerCase() == category){
+            generateItemCard(i);
+        }
+    }
+}
+
+//Opens up the itempage to a random product
+function randomProduct(){
+    var itemlist = JSON.parse(localStorage.getItem("itemlist"));
+    var itemid =  Math.floor(Math.random() * (itemlist.length-1));
+    document.location.href="itempage.html?itemid="+itemid;
+}
+
+//Generate a card for a given itemid. Hooks to a row element inside the html.
+function generateItemCard(itemid){
+    var itemlist = JSON.parse(localStorage.getItem("itemlist"));
+    var list = document.getElementById("row");
     
+    var col = document.createElement("div")
+    col.className += "col-lg-4 col-md-6 mb-4";
+    list.appendChild(col);
+
+    var card = document.createElement("div")
+    card.className += "card h-100";
+    col.appendChild(card);
+
+    var a = document.createElement("a")
+    a.href = "itempage.html?itemid=" +itemid;
+    var img = document.createElement("img");
+    img.className += "card-img-top";
+    img.src += itemlist[itemid].Immagine;
+    a.appendChild(img);
+    card.appendChild(a);
+
+    var cardbody = document.createElement("div");
+    cardbody.className += "card-body";
+    card.appendChild(cardbody);
+
+    var cardtitle = document.createElement("h4");
+    cardtitle.className += "card-title";
+    cardbody.appendChild(cardtitle);
+
+    var atitle = document.createElement("a");
+    atitle.appendChild(document.createTextNode(itemlist[itemid].Nome));
+    atitle.href = "itempage.html?itemid=" +itemid;
+    cardtitle.appendChild(atitle);
+
+    var price = document.createElement("h5");
+    price.appendChild(document.createTextNode("€ " +itemlist[itemid].Prezzo));
+    cardbody.appendChild(price);
+
+    var desc = document.createElement("p");
+    var text = itemlist[itemid].Descrizione;
+    desc.appendChild(document.createTextNode(text.substring(0,100)));
+    desc.appendChild(document.createTextNode("..."));
+    cardbody.appendChild(desc);
+}
+
+//Searches item with a name similar to a given string
+function search(){
 }
 
 //TODO: Delete before final build

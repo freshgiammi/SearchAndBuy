@@ -32,7 +32,11 @@
 
     <!-- Offer --> 
     <!-- TODO: Is height okay? --> 
-    <header id="offer"></header>
+    <!-- MEMO: div/header inside a is semantically correct in HTML5-->
+
+    <a href="itempage.html?itemid=4">
+        <img id="offer" src="img/offer.png">
+</a>
 
     <!-- Navbar -->
     <nav id="home-nav" class="navbar fixed-top navbar-expand-lg navbar-dark">
@@ -52,12 +56,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorie</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Laptop</a>
-                        <a class="dropdown-item" href="#">Smartphones</a>
-                        <a class="dropdown-item" href="#">TV</a>
+                        <a class="dropdown-item" href="results.html?category=laptop">Laptop</a>
+                        <a class="dropdown-item" href="results.html?category=smartphones">Smartphones</a>
+                        <a class="dropdown-item" href="results.html?category=tv">TV</a>
+                        <a class="dropdown-item" href="results.html?category=smartwatches">Smartwatches</a>
                         <div class="dropdown-divider"></div>
-                        <!-- TODO: EASTER EGG-->
-                        <a class="dropdown-item" href="#">Tenta la fortuna, prodotto a caso?</a>
+                        <a class="dropdown-item" href="#" onclick="randomProduct();">Tenta la fortuna, prodotto a caso?</a>
                     </div>
                 </li>
                 <a id="login" class="nav-link" href="login.html">Login</a>
@@ -74,7 +78,12 @@
         </div>
     </nav>
 
-    <a href='itempage.html?itemid=0'>a link</a>
+      <!-- Page Content -->
+  <div class="container">
+        <div class="row" id="row">
+      </div>
+    </div>
+      <!-- /.container -->
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

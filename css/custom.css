@@ -34,20 +34,9 @@ h6 {
     transition: background-color 0.5s ease;
 }
 
-/* Adapt offer size based on vw width for mobile */
-@media (max-width: 480px){
-    #offer{
-        background: url(../img/offer.png) no-repeat;
-        height: 250px;
-        background-size: 100%;
-    }
-}
-@media (min-width: 481px){
-    #offer{
-        background: url(../img/offer.png) no-repeat;
-        height: 100%;
-        background-size: 100%;
-    }
+#offer{
+    width: 100%;
+    height: auto;
 }
 
 /* Register.html form*/
@@ -56,4 +45,10 @@ h6 {
     /* Firefox requires this */
     width: 300px;
     text-align-last: center;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15em;
+    object-fit: scale-down;
 }

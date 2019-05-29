@@ -80,7 +80,7 @@ var prodotti=[
 	}
 	,
 	{
-	"Nome":"Xiaomi Notebook PRO"
+	"Nome":"Xiaomi Mi Notebook Pro"
 	,
 	"Prezzo":"880"
 	,
@@ -95,6 +95,26 @@ var prodotti=[
 	"Quantita":2
 	,
 	"Spedizione":"Importato da Cina (Fast Shipping)"
+	,
+	"VendorID":0
+	}
+	,
+	{
+	"Nome":"Apple Watch Serie 4"
+	,
+	"Prezzo":"439"
+	,
+	"Immagine":"img/applewatch.png"
+	,
+	"Categoria":"Smartwatches"
+	,
+	"Descrizione":"Il cambiamento inizia da dentro. Scopri e acquista il nuovo modello. 18 ore di autonomia. Fino a 2 volte più veloce. Speaker 50% più potente. Nuovissimo chip S4. Oltre 30% più display."
+	,
+	"ID":5
+	,
+	"Quantita":4
+	,
+	"Spedizione":"Spedito con Poste Italiane"
 	,
 	"VendorID":0
 	}

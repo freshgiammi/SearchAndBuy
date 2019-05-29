@@ -16,13 +16,10 @@
     <script type="text/javascript" src="products.json"></script>
     <script type="text/javascript" src="users.json"></script>
 
-    <!-- Font Awesome for favicons -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-
     <title>Search&Buy, il più grande store d'Europa</title>
 </head>
 
-<body onload="cartLoader()">
+<body onload="categoryloader()">
     <!-- Navbar -->
     <nav class="shadow-sm navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="index.html">Search&Buy</a>
@@ -60,65 +57,17 @@
                 <button id="searchbutton" class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
 
             </form>
-        </div>
+    </div>
     </nav>
 
     <br>
-    <h1 id="emptycart" style="text-align: center; margin-top: 50px; display: none;">Il carrello è vuoto! <a href="index.html">Torna alla homepage.</a></h1>
-    <div id="cart" class="container mb-4">
-        <div class="row">
-            <div class="col-12">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col"> </th>
-                                <th scope="col">Prodotto</th>
-                                <th scope="col">Metodo di spedizione</th>
-                                <th scope="col" class="text-right">Prezzo</th>
-                                <th> </th>
-                            </tr>
-                        </thead>
-                        <tbody id="items">
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Sub-Totale</td>
-                                <td id="subtotal" class="text-right"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Spese di spedizione</td>
-                                <td class="text-right">6.90 €</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><strong>Totale</strong></td>
-                                <td id="total" class="text-right"><strong></strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col mb-2">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <button class="btn btn-block btn-light">Continua lo shopping</button>
-                    </div>
-                    <div class="col-sm-12 col-md-6 text-right">
-                        <button class="btn btn-lg btn-block btn-success text-uppercase" onclick="checkout();">Checkout</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <h1 id="category" style="text-align: center; display: block;"></h1>
+    <br>
+    <div class="container">
+        <div class="row" id="row">
+      </div>
     </div>
-    
-    
+
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
