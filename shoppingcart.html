@@ -12,9 +12,10 @@
     <!-- Custom Resources -->
     <link rel="stylesheet" href="css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
-    <script type="text/javascript" src="utilities.js"></script>
     <script type="text/javascript" src="products.json"></script>
     <script type="text/javascript" src="users.json"></script>
+    <script type="text/javascript" src="js/utilities.js"></script>
+    <script type="text/javascript" src="js/cart.js"></script>
 
     <!-- Font Awesome for favicons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
@@ -33,7 +34,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="index.html">Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">I più acquistati</a>
@@ -54,11 +55,9 @@
                 <a id="shoppingcart" class="nav-link" href="shoppingcart.html">Carrello</a>
 
             </ul>
-
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button id="searchbutton" class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-
+            <form class="form-inline my-2 my-lg-0" onsubmit="return search()">
+                <input id="searchinput" class="form-control mr-sm-2" type="search" placeholder="Cerca" aria-label="Search">
+                <button id="searchbutton" class="btn btn-outline-dark my-2 my-sm-0" type="submit">Cerca</button>
             </form>
         </div>
     </nav>
@@ -123,7 +122,7 @@
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
 
 </body>
 
