@@ -31,17 +31,20 @@ function userinfo(){
                 var itemid = user[userid].acquisti[i].itemid;
                 var list = document.getElementById("orderlist");
         
-                //Generate review
-                var newpara = document.createElement("p");
-                newpara.appendChild(document.createTextNode(itemlist[itemid].Nome));
-                list.appendChild(newpara);
+                //Generate item name
+                var itemname = document.createElement("p");
+                var anchor = document.createElement("a");
+                anchor.href = "itempage.html?itemid=" +itemid;
+                anchor.appendChild(document.createTextNode(itemlist[itemid].Nome));
+                itemname.appendChild(anchor);
+                list.appendChild(itemname);
 
-                // Generate reviewer
-                var newid = document.createElement("p");
-                newid.className += "text-muted";
-                newid.style.fontSize += "12px";
-                newid.appendChild(document.createTextNode("Ordine effettuato in data: " +user[userid].acquisti[i].data));
-                list.appendChild(newid);
+                // Generate item date 
+                var itemdate = document.createElement("p");
+                itemdate.className += "text-muted";
+                itemdate.style.fontSize += "12px";
+                itemdate.appendChild(document.createTextNode("Ordine effettuato in data: " +user[userid].acquisti[i].data));
+                list.appendChild(itemdate);
 
                 //Generate cancel order button
                 if (user[userid].acquisti[i].data == dateBuilder()){
@@ -77,15 +80,18 @@ function userinfo(){
                 var list = document.getElementById("reviewlist");
         
                 //Generate review
-                var newpara = document.createElement("p");
-                newpara.appendChild(document.createTextNode(user[userid].recensioni[i].review));
-                list.appendChild(newpara);
+                var review = document.createElement("p");
+                review.appendChild(document.createTextNode(user[userid].recensioni[i].review));
+                list.appendChild(review);
 
                 // Generate reviewer
-                var newid = document.createElement("small");
-                newid.className += "text-muted";
-                newid.appendChild(document.createTextNode("Hai recensito: "+itemlist[itemid].Nome +" in data " +user[userid].recensioni[i].data));
-                list.appendChild(newid);
+                var reviewer = document.createElement("small");
+                reviewer.className += "text-muted";
+                var anchorreview = document.createElement("a");
+                anchorreview.href = "itempage.html?itemid=" +itemid;
+                anchorreview.appendChild(document.createTextNode("Hai recensito: "+itemlist[itemid].Nome +" in data " +user[userid].recensioni[i].data));
+                reviewer.appendChild(anchorreview)
+                list.appendChild(reviewer);
 
                 //Generate divider
                 var newhr = document.createElement("hr");
