@@ -1,7 +1,6 @@
 //Who let the users in? 
 function login(){
     var userlist = JSON.parse(localStorage.getItem("users"));
-    console.log(userlist);
     var email = document.getElementById("email").value;
   	var password = document.getElementById("password").value;
 

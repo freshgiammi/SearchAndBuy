@@ -89,7 +89,6 @@ function cartRemover(productid){
 //Checkout, add items to acquisti and decrement stock by 1
 function checkout(){
     var userlist = JSON.parse(localStorage.getItem("users"));
-    var usertype = sessionStorage.getItem("usertype"); //IDE: Actually used
     var itemlist = JSON.parse(localStorage.getItem("itemlist"));
     var userid = sessionStorage.getItem("userid");
     var cart = JSON.parse(sessionStorage.getItem("cart"));

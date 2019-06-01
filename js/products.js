@@ -58,7 +58,6 @@ function productinfo(productid){
 }
 
 function reviewbuilder(productid){
-    var itemlist = JSON.parse(localStorage.getItem("itemlist"));
     var userlist = JSON.parse(localStorage.getItem("users"));
     var reviews = new Array();
 
@@ -111,7 +110,7 @@ function sendReview(){
     }
 
     //Check if user has bought the item
-    if (isBought(usertype,itemid) == false){
+    if (isBought(itemid) == false){
         return alert("Non hai ancora acquistato questo articolo!");
     }
 
@@ -120,51 +119,32 @@ function sendReview(){
         return alert("Scrivi qualcosa prima di inviare!");
     }
 
-    if (usertype == "cli"){
-        if (isReviewed(usertype,itemid) == true){
-            //If user has already reviewed the item, let him know
-            if (confirm("Hai già lasciato una recensione, vuoi modificarla?")){
-                for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
-                    if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid){
-                        userlist[0].Clienti[userid].recensioni[i].review = document.getElementById("review").value;
-                        userlist[0].Clienti[userid].recensioni[i].data = dateBuilder();
-                        localStorage.setItem("users", JSON.stringify(userlist));
+    if (isReviewed(itemid) == true){
+        //If user has already reviewed the item, let him know
+        if (confirm("Hai già lasciato una recensione, vuoi modificarla?")){
+            for(var i=0;i<user[userid].recensioni.length;i++){
+                if (user[userid].recensioni[i].itemid == itemid){
+                    var review = ({"itemid":(itemid),"review":(document.getElementById("review").value),"data":(dateBuilder())});
+                    if (usertype == "cli"){
+                        userlist[0].Clienti[userid].recensioni[i] = review;
+                    } else if (usertype == "vend"){
+                        userlist[0].Venditori[userid].recensioni[i] = review;
                     }
-                }
-            } else
-                return; // Abort review
-        } else {
-            for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
-                if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid){
-                    userlist[0].Clienti[userid].recensioni[i].review = document.getElementById("review").value;
-                    userlist[0].Clienti[userid].recensioni[i].data = dateBuilder();
                     localStorage.setItem("users", JSON.stringify(userlist));
                 }
             }
-        } 
-    } else if (usertype == "vend") {
-        if (isReviewed(usertype,itemid) == true){
-            //If user has already reviewed the item, let him know
-            if (confirm("Hai già lasciato una recensione, vuoi modificarla?")){
-                for(var i=0;i<userlist[0].Venditori[userid].recensioni.length;i++){
-                    if (userlist[0].Venditori[userid].recensioni[i].itemid == itemid){
-                        userlist[0].Venditori[userid].recensioni[i].review = document.getElementById("review").value;
-                        userlist[0].Venditori[userid].recensioni[i].data = dateBuilder();
-                        localStorage.setItem("users", JSON.stringify(userlist));
-                    }
-                }
-            } else
-                return; // Abort review
-        } else {
-            for(var i=0;i<userlist[0].Venditori[userid].recensioni.length;i++){
-                if (userlist[0].Venditori[userid].recensioni[i].itemid == itemid){
-                    userlist[0].Venditori[userid].recensioni[i].review = document.getElementById("review").value;
-                    userlist[0].Venditori[userid].recensioni[i].data = dateBuilder();
-                    localStorage.setItem("users", JSON.stringify(userlist));
-                }
+        } else
+            return; // Abort review
+    } else {
+             var review = ({"itemid":(itemid),"review":(document.getElementById("review").value),"data":(dateBuilder())});
+            user[userid].recensioni.push(review);
+            if (usertype == "cli"){
+                userlist[0].Clienti[userid].recensioni.push(review)
+            } else if (usertype == "vend"){
+                userlist[0].Venditori[userid].recensioni.push(review);
             }
-        }
-    }
+            localStorage.setItem("users", JSON.stringify(userlist));
+    } 
     // Reload product info to show new review
     location.reload();
 }

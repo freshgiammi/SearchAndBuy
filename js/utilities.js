@@ -1,3 +1,16 @@
+/*Loads on every page if the variable is not set already.
+* Create a shortcut, depending whether the user is a Client or a Vendor, 
+* allowing us to avoid creating redundant code. Does not work when modifying arrays (userlist, acquisti)
+* or displaying user info that is not related to the current logged in user.
+* This shortcut only refers to the current user logged in, 
+* whether he's a client or a vendor, not all of the userbase. 
+*/
+if (sessionStorage.getItem("userid") != null && user == null){
+    var usertype = sessionStorage.getItem('usertype');
+    var userlist = JSON.parse(localStorage.getItem("users"));
+    var user = (usertype == "cli" ? userlist[0].Clienti : userlist[0].Venditori);
+}
+
 // Hide navbar items if user is not logged in
 function navbarhider() {
     var userid = sessionStorage.getItem('userid');
@@ -180,7 +193,6 @@ function isRegistered(userlist){
         } else if (usertype =="vend") { 
             userlist[0].Venditori.splice(userid,1);
         }
-        console.log(userlist);
     }
     
     for(var i=0;i<userlist[0].Clienti.length;i++){
@@ -199,42 +211,24 @@ function isRegistered(userlist){
 }
 
 //Check if user has bought a certain item
-function isBought(usertype, itemid){
-    var userlist = JSON.parse(localStorage.getItem("users"));
+function isBought(itemid){
     var userid = sessionStorage.getItem('userid');
     
-    if (usertype == "cli"){
-        for(var i=0;i<userlist[0].Clienti[userid].acquisti.length;i++){
-            if (userlist[0].Clienti[userid].acquisti[i].itemid == itemid){
-                return true;
-            }
-        }
-    } else {
-        for(var i=0;i<userlist[0].Venditori[userid].acquisti.length;i++){
-            if (userlist[0].Venditori[userid].acquisti[i].itemid == itemid){
-                return true;
-            }
+    for(var i=0;i<user[userid].acquisti.length;i++){
+        if (user[userid].acquisti[i].itemid == itemid){
+            return true;
         }
     }
     return false;
 }
 
 //Check if user has reviewed a certain item
-function isReviewed(usertype, itemid){
-    var userlist = JSON.parse(localStorage.getItem("users"));
+function isReviewed(itemid){
     var userid = sessionStorage.getItem('userid');
 
-    if (usertype == "cli"){
-        for(var i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
-            if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid){
-                return true;
-            }
-        }
-    } else {
-        for(var i=0;i<userlist[0].Venditori[userid].recensioni.length;i++){
-            if (userlist[0].Venditori[userid].recensioni[i].itemid == itemid){
-                return true;
-            }
+    for(var i=0;i<user[userid].recensioni.length;i++){
+        if (user[userid].recensioni[i].itemid == itemid){
+            return true;
         }
     }
     return false;
