@@ -197,7 +197,23 @@ function cancelOrder(itemid, index){
 
     if (confirm("Sei sicuro di voler annullare questo ordine?")){
         itemlist[itemid].Quantita = Number(itemlist[itemid].Quantita)+1;
-        user[userid].acquisti.splice(index,1);
+        if (usertype == "cli"){
+            userlist[0].Clienti[userid].acquisti.splice(index,1);
+            if (isReviewed(itemid) == true){
+                for (i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
+                    if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid && userlist[0].Clienti[userid].recensioni[i].data == dateBuilder())
+                    userlist[0].Clienti[userid].recensioni.splice(i,1);
+                }
+            }
+        } else if (usertype == "vend"){
+            userlist[0].Venditori[userid].acquisti.splice(index,1);
+            if (isReviewed(itemid) == true){
+                for (i=0;i<userlist[0].Clienti[userid].recensioni.length;i++){
+                    if (userlist[0].Clienti[userid].recensioni[i].itemid == itemid && userlist[0].Clienti[userid].recensioni[i].data == dateBuilder())
+                    userlist[0].Venditori[userid].recensioni.splice(i,1);
+                }
+            }
+        }
         localStorage.setItem("users", JSON.stringify(userlist));
         localStorage.setItem("itemlist", JSON.stringify(itemlist));
         location.reload();
