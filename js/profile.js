@@ -116,10 +116,14 @@ function deleteaccount(){
         var userid = sessionStorage.getItem('userid');
         var userlist = JSON.parse(localStorage.getItem("users"));
         
-        user[userid].splice(userid,1);
+        if (usertype == "cli"){
+            userlist[0].Clienti.splice(userid,1);
+       } else {
+           userlist[0].Venditori.splice(userid,1);
+       }
+
         localStorage.setItem("users", JSON.stringify(userlist));
         console.log("User deleted. New Userlist is:")
-        console.log(userlist);
         console.log("Redirecting to homepage...");
         sessionStorage.clear();
         document.location.href="index.html";   
