@@ -28,10 +28,10 @@ function productinfo(productid){
 
     if (itemlist[productid].Quantita == 0)
     document.getElementById("cartbutton").style.display = "none";
-    
+
     // Build an array of reviews, sorted by date
     var reviews = reviewbuilder(productid);
-    
+
     for (i=0;i<reviews.length;i++){ //TODO: Is a for-each better?
         var list = document.getElementById("reviews");
 
@@ -101,7 +101,7 @@ function sendReview(){
     var usertype = sessionStorage.getItem('usertype');
     var userid = sessionStorage.getItem('userid');
     var itemid = urlRetriever("itemid");
-    
+
     //Check if user is logged in before creating a review
     if (userid == null){
         alert("Devi loggarti prima di poter scrivere una recensione!");

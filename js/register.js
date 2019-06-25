@@ -11,7 +11,7 @@ function register(){
             var newuser = ({"ID":(userlist[0].Clienti.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"cli","pagamento":document.getElementById("pagamento").value,"useragreement":document.getElementById("useragreement").value,"acquisti":new Array(),"recensioni":new Array()});
             userlist[0].Clienti.splice(userlist[0].Clienti.length,0, newuser);
             localStorage.setItem("users", JSON.stringify(userlist));
-            } else if (usertype == "vend") { 
+        } else if (usertype == "vend") { 
             var newuser = ({"ID":(userlist[0].Venditori.length),"nomecognome":document.getElementById("nomecognome").value, "email": document.getElementById("email").value,"password":document.getElementById("password").value,"nascita":document.getElementById("nascita").value,"indirizzo":document.getElementById("indirizzo").value,"tipo":"vend","pagamento":document.getElementById("pagamento").value,"useragreement":document.getElementById("useragreement").value,"attività":document.getElementById("attività").value,"partitaiva":document.getElementById("partitaiva").value,"acquisti":new Array(),"recensioni":new Array()}); 
             userlist[0].Venditori.splice(users[0].Venditori.length,0, newuser);
             localStorage.setItem("users", JSON.stringify(userlist));

@@ -30,7 +30,7 @@ function userinfo(){
             for (i=0;i<user[userid].acquisti.length;i++){ //TODO: Is a for-each better?
                 var itemid = user[userid].acquisti[i].itemid;
                 var list = document.getElementById("orderlist");
-        
+
                 //Generate item name
                 var itemname = document.createElement("p");
                 var anchor = document.createElement("a");
@@ -47,12 +47,12 @@ function userinfo(){
                 list.appendChild(itemdate);
 
                 //Generate cancel order button
-                if (user[userid].acquisti[i].data == dateBuilder()){
+                if (dateCheck(user[userid].acquisti[i].data) == true){
                     var button = document.createElement("button");
                     button.className += "btn btn-danger btn-sm";
                     button.appendChild(document.createTextNode("Annulla ordine"));
 
-                    /**  
+                    /**
                     *    Javascript doesn't use block scope. For this reason, the variable i is visible to the function
                     *    at execution time. This means that every time, the function will be called with the last iterated value of i. 
                     *    Work around this by using closure, creating a private variable preserved by each callback value.

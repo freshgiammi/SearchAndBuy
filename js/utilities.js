@@ -28,7 +28,7 @@ function indexloader(){
     navbarhider();
     if(localStorage.getItem("itemlist")==null){
         //If itemlist is already present don't override it, otherwise we may not have the real amount of items left
-        localStorage.setItem("itemlist", JSON.stringify(prodotti));
+        localStorage.setItem("itemlist", JSON.stringify(products));
         console.log("itemlist succesfully loaded.");
     }
     if(localStorage.getItem("users")==null){
@@ -278,6 +278,19 @@ function dateBuilder(){
     (m.length == 1) && (m = '0' + m);
     var date = y +"-" +m +"-" +d;
     return date;
+}
+
+//Returns true if the date given is not older than 1 day
+function dateCheck(date){
+    var itemdate = date.split("-"); //YYYY-MM-DD
+    var currdate = dateBuilder().split("-");
+    if (itemdate[0] == currdate[0] && itemdate[1] == currdate[1]){
+        var itemday = Number(itemdate[2]);
+        var currday = Number(currdate[2]);
+        if (currday-itemday == 0 || currday-itemday == 1)
+            return true
+    }
+    return false;
 }
 
 //TODO: Delete before final build

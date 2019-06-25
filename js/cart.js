@@ -92,7 +92,7 @@ function checkout(){
     var itemlist = JSON.parse(localStorage.getItem("itemlist"));
     var userid = sessionStorage.getItem("userid");
     var cart = JSON.parse(sessionStorage.getItem("cart"));
-    
+
     for (i=0;i<cart.length;i++){
         var item = ({"itemid":cart[i],"data":dateBuilder()});
         if (usertype = "cli"){
@@ -109,7 +109,7 @@ function checkout(){
     sessionStorage.removeItem("cart");
     cart = [];
     sessionStorage.setItem("cart", JSON.stringify(cart));
-    
+
     alert("Checkout completato! Sarai reindirizzato alla home page...");
     document.location.href="index.html";
 
