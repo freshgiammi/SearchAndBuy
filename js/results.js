@@ -8,7 +8,7 @@ function resultloader(){
 function generateResult(){
     var itemlist = JSON.parse(localStorage.getItem("itemlist"));
 
-    if (urlRetriever("category") != null){
+    if (urlRetriever("category") != null){ //Display category items
         var value = urlRetriever("category");
         document.getElementById("result").innerText = "Stai guardando la categoria: " +value.charAt(0).toUpperCase() + value.slice(1);
         for (i=0;i<itemlist.length;i++){
@@ -16,7 +16,7 @@ function generateResult(){
                 generateItemCard(i);
             }
         }
-    } else {
+    } else { //Display search results
         var value = urlRetriever("search");
         document.getElementById("result").innerText = "Risultati della ricerca per: " +value;
         for (i=0;i<itemlist.length;i++){

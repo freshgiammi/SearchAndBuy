@@ -26,8 +26,13 @@ function productinfo(productid){
             }
     }
 
-    if (itemlist[productid].Quantita == 0)
-    document.getElementById("cartbutton").style.display = "none";
+    if (itemlist[productid].Quantita == 0){
+    document.getElementById("cartbutton").classList.add('btn-danger');
+    document.getElementById("cartbutton").classList.remove('btn-success');
+    document.getElementById("cartbutton").innerHTML="Prodotto esaurito!";
+    document.getElementById("cartbutton").onclick = function(){return alert("Prodotto esaurito!")};
+
+    }
 
     // Build an array of reviews, sorted by date
     var reviews = reviewbuilder(productid);
@@ -105,8 +110,6 @@ function sendReview(){
     //Check if user is logged in before creating a review
     if (userid == null){
         alert("Devi loggarti prima di poter scrivere una recensione!");
-        document.location.href="login.html";
-
     }
 
     //Check if user has bought the item
@@ -122,8 +125,8 @@ function sendReview(){
     if (isReviewed(itemid) == true){
         //If user has already reviewed the item, let him know
         if (confirm("Hai già lasciato una recensione, vuoi modificarla?")){
-            for(var i=0;i<user[userid].recensioni.length;i++){
-                if (user[userid].recensioni[i].itemid == itemid){
+            for(var i=0;i<user.recensioni.length;i++){
+                if (user.recensioni[i].itemid == itemid){
                     var review = ({"itemid":(itemid),"review":(document.getElementById("review").value),"data":(dateBuilder())});
                     if (usertype == "cli"){
                         userlist[0].Clienti[userid].recensioni[i] = review;
@@ -137,7 +140,7 @@ function sendReview(){
             return; // Abort review
     } else {
              var review = ({"itemid":(itemid),"review":(document.getElementById("review").value),"data":(dateBuilder())});
-            user[userid].recensioni.push(review);
+            user.recensioni.push(review);
             if (usertype == "cli"){
                 userlist[0].Clienti[userid].recensioni.push(review)
             } else if (usertype == "vend"){

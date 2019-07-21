@@ -1,14 +1,15 @@
 /*Loads on every page if the variable is not set already.
-* Create a shortcut, depending whether the user is a Client or a Vendor, 
+* Create an alias, depending whether the user is a Client or a Vendor, 
 * allowing us to avoid creating redundant code. Does not work when modifying arrays (userlist, acquisti)
 * or displaying user info that is not related to the current logged in user.
 * This shortcut only refers to the current user logged in, 
-* whether he's a client or a vendor, not all of the userbase. 
+* whether he's a client or a vendor, not all of the userbase. (The whole user information is stored in this variable)
 */
-if (sessionStorage.getItem("userid") != null && user == null){
+if (sessionStorage.getItem("userid") != null && user == null){ //
     var usertype = sessionStorage.getItem('usertype');
     var userlist = JSON.parse(localStorage.getItem("users"));
-    var user = (usertype == "cli" ? userlist[0].Clienti : userlist[0].Venditori);
+    var userid = sessionStorage.getItem("userid");
+    var user = (usertype == "cli" ? userlist[0].Clienti[userid] : userlist[0].Venditori[userid]);
 }
 
 // Hide navbar items if user is not logged in
@@ -151,13 +152,15 @@ function search(){
 function urlRetriever(str){
     const urlParams = new URLSearchParams(window.location.search);
     const value = urlParams.get(str);
-    console.log("Acquired variable with value: " +value);
+    if (value != null)
+        console.log("Acquired " +str +" with value: " +value);
     return value;
 }
 
 //Hide and show forms for each user type
 function showHide() { 
     //Detection phase: allow forms to be hidden during register phase
+    //If there is a value stored in sessionStorage, it means we're on the profile page.
     if (sessionStorage.getItem('usertype') == null){
         var usertype = document.getElementById("usertype").value;
     } else {
@@ -168,13 +171,13 @@ function showHide() {
         console.log("User is vendor. Showing fields");
         document.getElementsByClassName("vendorinfo")[1].style.display = "inline-flex";
         document.getElementsByClassName("vendorinfo")[0].style.display = "inline-flex";
-        if (sessionStorage.getItem('userid') == null) // Detect register form via userid
+        if (sessionStorage.getItem('usertype') == null) // If null, we're on the register page. Display the form.
             document.getElementById("register").style.display = "block";
     } else if (usertype == "cli"){
         console.log("User is client. Hiding fields");
         document.getElementsByClassName("vendorinfo")[1].style.display = "none";
         document.getElementsByClassName("vendorinfo")[0].style.display = "none";
-        if (sessionStorage.getItem('userid') == null)
+        if (sessionStorage.getItem('usertype') == null)
             document.getElementById("register").style.display = "block";
     }
 }
@@ -214,8 +217,8 @@ function isRegistered(userlist){
 function isBought(itemid){
     var userid = sessionStorage.getItem('userid');
     
-    for(var i=0;i<user[userid].acquisti.length;i++){
-        if (user[userid].acquisti[i].itemid == itemid){
+    for(var i=0;i<user.acquisti.length;i++){
+        if (user.acquisti[i].itemid == itemid){
             return true;
         }
     }
@@ -226,8 +229,8 @@ function isBought(itemid){
 function isReviewed(itemid){
     var userid = sessionStorage.getItem('userid');
 
-    for(var i=0;i<user[userid].recensioni.length;i++){
-        if (user[userid].recensioni[i].itemid == itemid){
+    for(var i=0;i<user.recensioni.length;i++){
+        if (user.recensioni[i].itemid == itemid){
             return true;
         }
     }
@@ -291,6 +294,18 @@ function dateCheck(date){
             return true
     }
     return false;
+}
+
+function showPass(){
+    if (document.getElementById("password").type == 'password'){
+        document.getElementById("password").type='text';
+        document.getElementById("eye").classList.remove('fa-eye')
+        document.getElementById("eye").classList.add('fa-eye-slash')
+    }else if (document.getElementById("password").type == 'text'){
+        document.getElementById("password").type='password';
+        document.getElementById("eye").classList.add('fa-eye')
+        document.getElementById("eye").classList.remove('fa-eye-slash')
+    }
 }
 
 //TODO: Delete before final build
