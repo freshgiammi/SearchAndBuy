@@ -117,10 +117,21 @@ function deleteaccount(){
         var userlist = JSON.parse(localStorage.getItem("users"));
         
         if (usertype == "cli"){
-            userlist[0].Clienti.splice(userid,1);
+            for (i = 0; userlist[0].Clienti.length; i++){
+                console.log(userlist[0].Clienti[i].ID == userid)
+                if (userlist[0].Clienti[i].ID == userid){
+                    userlist[0].Clienti.splice(i,1);
+                    break;
+                }
+            }
        } else {
-           userlist[0].Venditori.splice(userid,1);
-       }
+            for (i = 0; userlist[0].Venditori.length; i++){
+                if (userlist[0].Venditori[i].ID == userid){
+                    userlist[0].Venditori.splice(i,1);
+                    break;
+                }
+            }
+        }
 
         localStorage.setItem("users", JSON.stringify(userlist));
         console.log("User deleted. New Userlist is:")

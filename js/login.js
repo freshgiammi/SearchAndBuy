@@ -7,7 +7,7 @@ function login(){
     //Look for user data
     for(var i=0;i<userlist[0].Clienti.length;i++){
         if (userlist[0].Clienti[i].email == email &&userlist[0].Clienti[i].password == password){
-            sessionStorage.setItem("userid",i);
+            sessionStorage.setItem("userid",userlist[0].Clienti[i].ID);
             sessionStorage.setItem("usertype","cli");
             var cart = [];
             sessionStorage.setItem("cart", JSON.stringify(cart));
@@ -19,7 +19,7 @@ function login(){
 
     for(var i=0;i<userlist[0].Venditori.length;i++){
         if (userlist[0].Venditori[i].email == email &&userlist[0].Venditori[i].password == password){
-            sessionStorage.setItem("userid",i);
+            sessionStorage.setItem("userid",userlist[0].Venditori[i].ID);
             sessionStorage.setItem("usertype","vend");
             var cart = [];
             sessionStorage.setItem("cart", JSON.stringify(cart));
