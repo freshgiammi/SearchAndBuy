@@ -39,33 +39,32 @@ function indexloader(){
         console.log("userlist succesfully loaded.");
   } 
   
-   //TODO: Rewrite in JavaScript
     /* Enable transparent navbar on scroll */
-    $(window).scroll(function() {
+    window.onscroll = function() {
         if ($(window).scrollTop() >= 1) {
-            $(".navbar").css('background', '#f8f9fa'); //bg-light
-            $(".navbar").addClass("navbar-light");
-            $(".navbar").removeClass("navbar-dark");
-            $("#searchbutton").addClass("btn-outline-dark");
-            $("#searchbutton").removeClass("btn-outline-light");
+            document.getElementById("home-nav").style.backgroundColor="#f8f9fa" //bg-light
+            document.getElementById("home-nav").classList.add("navbar-light");
+            document.getElementById("home-nav").classList.remove("navbar-dark");
+            document.getElementById("searchbutton").classList.remove("btn-outline-light");
+            document.getElementById("searchbutton").classList.add("btn-outline-dark");
         } else {
-            $(".navbar").css('background', 'transparent');
-            $(".navbar").removeClass("navbar-light");
-            $(".navbar").addClass("navbar-dark");
-            $("#searchbutton").addClass("btn-outline-light");
-            $("#searchbutton").removeClass("btn-outline-dark");
+            document.getElementById("home-nav").style.backgroundColor="transparent"
+            document.getElementById("home-nav").classList.remove("navbar-light");
+            document.getElementById("home-nav").classList.add("navbar-dark");
+            document.getElementById("searchbutton").classList.add("btn-outline-light");
+            document.getElementById("searchbutton").classList.remove("btn-outline-dark");
         }
-    });
+    };
 
     /* Avoid transparency issues on mobile */
     // Array looks like [navbar fixed-top navbar-expand-lg navbar-dark]
     $('button.navbar-toggler').on('click', function() {
-        if ($($(".navbar").attr("class").split(' ')[3] == "navbar-dark")){
-            $(".navbar").css('background', '#f8f9fa'); //bg-light
-            $(".navbar").addClass("navbar-light");
-            $(".navbar").removeClass("navbar-dark");
-            $("#searchbutton").addClass("btn-outline-dark");
-            $("#searchbutton").removeClass("btn-outline-light");
+        if (document.getElementById("home-nav").classList[3] == "navbar-dark"){
+            document.getElementById("home-nav").style.backgroundColor="#f8f9fa" //bg-light
+            document.getElementById("home-nav").classList.add("navbar-light");
+            document.getElementById("home-nav").classList.remove("navbar-dark");
+            document.getElementById("searchbutton").classList.remove("btn-outline-light");
+            document.getElementById("searchbutton").classList.add("btn-outline-dark");
         }
     });
 
