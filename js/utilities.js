@@ -196,15 +196,28 @@ function isRegistered(userlist){
             userlist[0].Venditori.splice(userid,1);
         }
     }
+
+    var count = 0
+    for (i=0; i<document.getElementById("email").value.length; i++){
+        if (document.getElementById("email").value.charAt(i) == '@')
+            count++;
+    }
+    if (count == 0){
+        console.log("Email is malformed");
+        alert("Email non valida!");
+        return true;
+    }
     
     for(var i=0;i<userlist[0].Clienti.length;i++){
         if (userlist[0].Clienti[i].email == document.getElementById("email").value){
+            console.log("Mail already registered. Try again...");
             alert("Questa mail è già registrata! Utilizza un'altra mail.");
             return true;
         }
       }
       for(var i=0;i<userlist[0].Venditori.length;i++){
         if (userlist[0].Venditori[i].email == document.getElementById("email").value){
+            console.log("Mail already registered. Try again...");
             alert("Questa mail è già registrata! Utilizza un'altra mail.");
             return true;
         }
@@ -242,7 +255,7 @@ function formValidation(usertype){
         if (document.getElementById("nomecognome").value != '' && document.getElementById("email").value != '' && document.getElementById("password").value != '' && document.getElementById("telefono").value != '' && document.getElementById("nascita").value != '' && document.getElementById("indirizzo").value != ''){
             //HACK: For some reason, pagamento is recognized as 'false' but evaluated as 'true'. Create another if to check.
             if(document.getElementById("pagamento").value != ''){
-                if(userid == null){
+                if(userid == null){ //Useragreement cannot be changed from profile page
                     if (document.getElementById("useragreement").value != "accept"){
                         alert("Devi accettare i termini di contratto!");
                         return false;

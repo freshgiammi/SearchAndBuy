@@ -4,7 +4,7 @@ function register(){
     if (formValidation(usertype) == true){
         var userlist = JSON.parse(localStorage.getItem("users"));
         if (isRegistered(userlist) == true){
-            return console.log("Mail already registered. Try again...");
+            return; //Email is malformed or already registered
         }
 
         if (usertype=="cli"){
