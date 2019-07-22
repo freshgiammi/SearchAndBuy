@@ -18,13 +18,17 @@ function generateResult(){
         }
     } else { //Display search results
         var value = urlRetriever("search");
+        var count = 0;
         document.getElementById("result").innerText = "Risultati della ricerca per: " +value;
         for (i=0;i<itemlist.length;i++){
             var itemname = itemlist[i].Nome.toLowerCase();
             if (itemname.search(value) != -1){
                 generateItemCard(i);
+                count++;
             }
         }
+        if (count == 0)
+        document.getElementById("result").innerText = "Nessun risultato nella ricerca per " +value +" :(";
     }
 
 }

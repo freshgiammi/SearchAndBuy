@@ -34,6 +34,7 @@ body {
   margin-bottom: 15px;
 }
 
+/* userbutton */
 .profile-userbuttons {
   text-align: center;
   margin-top: 10px;
@@ -47,25 +48,30 @@ body {
   margin-right: 5px;
 }
     
+/* usermenu */
 .profile-usermenu {
   margin-top: 30px;
 }
 
+/* usermenu links */
 .profile-usermenu ul li a {
   color: #93a3b5;
   font-size: 14px;
 }
 
+/* usermenu icons */
 .profile-usermenu ul li a i {
   margin-right: 8px;
   margin-left: 8px;
 }
 
+/* usermenu link hovers */
 .profile-usermenu ul li a:hover {
   color: #5b9bd1;
   text-decoration: none;
 }
 
+/* usermenu current link */
 .profile-usermenu ul li.active a {
   color: #5b9bd1;
   background-color: #f6f9fb;
@@ -80,7 +86,6 @@ body {
   min-height: 460px;
 }
 
-/* Profile Content */
 #profile-info {
   display: block;
 }
